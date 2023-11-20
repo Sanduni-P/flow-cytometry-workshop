@@ -2,12 +2,15 @@ project:
   type: website
 
 website:
-  title: "FlowCytoverse-Workshop"
+  title: "Flow Cytometry Analysis using R"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - text: Workshop
+        menu:
+        - text: "Basics of working with FCS files"
+          href: vignettes/1_Import_fcs.html
 
 format:
   html:
