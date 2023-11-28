@@ -1,0 +1,15 @@
+alias,pop,parent,dims,gating_method,gating_args,collapseDataForGating,groupBy,preprocessing_method,preprocessing_args
+singlet,+,root,"FSC-A,FSC-H",singletGate,"wider_gate=FALSE,prediction_level=0.95",FALSE,NA,NA,NA
+live,-,singlet,Live,gate_quantile,probs = 0.95,FALSE,NA,NA,NA
+lymphocytes,+,live,"FSC-A,SSC-A",flowClust.2d,"K = 1,target = c(1E5,0.5E3)",FALSE,NA,NA,NA
+CD3 + Cells,+,lymphocytes,CD3,mindensity,,NA,NA,NA,NA
+non-NKT Cells,-,CD3 + Cells,CD1d,mindensity,,TRUE,status,NA,NA
+NKT Cells,+,CD3 + Cells,CD1d,mindensity,"gate_range=c(130,200),min = 130",TRUE,status,NA,NA
+True_NKT Cells,+,NKT Cells,"CD1d,CD3",flowClust.2d,"K=2,target=c(150,175)",TRUE,status,NA,NA
+Conv T Cells,--,non-NKT Cells,"Vd1,Vg9",mindensity,,FALSE,NA,NA,NA
+MAIT Cells,++,Conv T Cells,"CD161,TCR Va7_2",gate_quantile,probs = 0.97,TRUE,status,,NA
+not_MAIT Cells,+,Conv T Cells,,boolGate,!MAIT Cells,,,,
+CD4_ref,+,not_MAIT Cells,CD4,mindensity,,,,,
+CD8_ref,+,not_MAIT Cells,CD8,mindensity,,,,,
+CD4+ T Cells,+-,not_MAIT Cells,"CD4,CD8",refGate,CD4_ref:CD8_ref,,,,
+CD8+ T Cells,-+,not_MAIT Cells,"CD4,CD8",refGate,CD4_ref:CD8_ref,,,,

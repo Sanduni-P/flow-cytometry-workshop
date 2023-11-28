@@ -14,13 +14,13 @@ The aim of this workshop is to empower flow cytometry users and analysts towards
 
 By the end of this workshop, the attendees will be able to
 
--   [Import flow cytometry data](articles/1_Import_fcs.html)
--   [Understand the difference between **uncompensated**, **compensated**, and **transformed** data](articles/2_Spillover_transformation.html),
--   Identify sub-populations by [manual or semi-automated gating of markers](articles/3_Gating_1.html),
--   [Access and extract expression matrix from a gated data](articles/4_Gating_2.html),
--   Be aware of [csv-templating of Gating](articles/5_Gating_gatingTemplate.html) to perform large-scale gating
--   Identify and [generate important plots](articles/6_ggcyto.html) to assess the **data** and  **quality**,
--   [Generate plots summarizing the expression of markers and abundance of various sub-populations](articles/7_Reporting.html)
+-   [Import flow cytometry data](vignettes/1_Import_fcs.html)
+-   [Understand the difference between **uncompensated**, **compensated**, and **transformed** data](vignettes/2_Spillover_transformation.html),
+-   Identify sub-populations by [manual or semi-automated gating of markers](vignettes/3_Gating_1.html),
+-   [Access and extract expression matrix from a gated data](vignettes/4_Gating_2.html),
+-   Be aware of [csv-templating of Gating](vignettes/5_Gating_gatingTemplate.html) to perform large-scale gating
+-   Identify and [generate important plots](vignettes/6_ggcyto.html) to assess the **data** and  **quality**,
+-   [Generate plots summarizing the expression of markers and abundance of various sub-populations](vignettes/7_Reporting.html)
 
 ## Workshop schedule
 
@@ -44,13 +44,6 @@ By the end of this workshop, the attendees will be able to
 
 For this workshop, we will use subset of a public data set: [FR-FCM-Z5PC](https://flowrepository.org/public_experiment_representations/5932) that can be found in **flowrepository.org**. The dataset was published in the following [paper](https://doi.org/10.1038/s41467-022-34638-2).
 
-
-# Credits and Acknowledgement
-
-^*This workshop materials is adapted from [this website](https://cdn.ozetteai.com/cytoverse-bioc-2023/index.html) which contains training materials that was presented at a workshop at [Bioc2023](https://bioc2023.bioconductor.org/schedule/), on August 2nd.*^
-
----
-
 # Journey into the `cytoverse`
 
 What do these various packages do, and where should you look for a piece of functionality?
@@ -64,7 +57,12 @@ What do these various packages do, and where should you look for a piece of func
 * flowClust: implements various unsupervised clustering methods
 * flowStats: enables calculation of sample-level summaries of gated populations
 
+# Credits and Acknowledgement
+
+^*This workshop materials is adapted from [this website](https://cdn.ozetteai.com/cytoverse-bioc-2023/index.html) which contains training materials that was presented at a workshop at [Bioc2023](https://bioc2023.bioconductor.org/schedule/), on August 2nd.*^
+
 ---
+
 
 
 

@@ -11,12 +11,18 @@ website:
         menu:
         - text: "Basics of working with FCS files"
           href: vignettes/1_Import_fcs.html
-
+        - text: "Spillover, compensation, and Transformations"
+          href: vignettes/2_Spillover_transformation.html
 format:
   html:
-    theme: cerulean
-    css: styles.css
+    theme: 
+      - cerulean
+      - utils/css/custom.scss
     toc: true
-
+    toc-expand: 1
+    toc-title: Contents
+    embed-resources: true
+    css: utils/css/custom.css
+    smooth-scroll: true
 
 
