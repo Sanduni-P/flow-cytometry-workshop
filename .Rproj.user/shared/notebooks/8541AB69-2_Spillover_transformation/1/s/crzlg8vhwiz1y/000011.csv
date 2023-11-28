@@ -1,6 +1,0 @@
-"0","# read in a cytoset
-cs <- load_cytoset_from_fcs(path = ""data/fcs_data/"")
-"
-"2","Error in flowCore:::parse_pd_for_read_fs(files, path, pattern, phenoData,  : 
-  No matching files found in  data/fcs_data/
-"
