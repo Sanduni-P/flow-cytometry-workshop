@@ -1,0 +1,14 @@
+.landing {
+  border: 1mm solid;
+  padding: 20px;
+  border-color: #8FCBEB;
+}
+
+.title-block-banner-color{
+  color: red;
+}
+
+.scrolling {
+  max-height: 400px;
+  overflow-y: auto;
+}

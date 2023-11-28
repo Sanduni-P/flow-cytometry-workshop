@@ -1,0 +1,24 @@
+"0","# load the set of compensation files
+comp_cs <- load_cytoset_from_fcs(
+  csv_file[[""filename""]],
+  path = ""vignettes/data/FlowRepository_FR-FCM-ZZ36_files/""
+)
+"
+"2","Warning: path[1]=""vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_Alexa Fluor 405 Stained Control.fcs"": No such file or directory"
+"2","Warning: path[1]=""vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_Alexa Fluor 430 Stained Control.fcs"": No such file or directory"
+"2","Warning: path[1]=""vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_Alexa Fluor 488 Stained Control.fcs"": No such file or directory"
+"2","Warning: path[1]=""vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_APC Stained Control.fcs"": No such file or directory"
+"2","Warning: path[1]=""vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_APC-Cy7 Stained Control.fcs"": No such file or directory"
+"2","Warning: path[1]=""vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_PE Stained Control.fcs"": No such file or directory"
+"2","Warning: path[1]=""vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_PE-Cy5 Stained Control.fcs"": No such file or directory"
+"2","Warning: path[1]=""vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_PE-Cy5-5 Stained Control.fcs"": No such file or directory"
+"2","Warning: path[1]=""vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_PE-Cy7 Stained Control.fcs"": No such file or directory"
+"2","Warning: path[1]=""vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_PE-Texas Red Stained Control.fcs"": No such file or directory"
+"2","Warning: path[1]=""vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_PerCP-Cy5-5 Stained Control.fcs"": No such file or directory"
+"2","Warning: path[1]=""vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_Qdot 605 Stained Control.fcs"": No such file or directory"
+"2","Warning: path[1]=""vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_Qdot 655 Stained Control.fcs"": No such file or directory"
+"2","Warning: path[1]=""vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_Qdot 800 Stained Control.fcs"": No such file or directory"
+"2","Warning: path[1]=""vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_Unstained Control.fcs"": No such file or directory"
+"2","Error: can't open the file: vignettes/data/FlowRepository_FR-FCM-ZZ36_files//Compensation Controls_Alexa Fluor 405 Stained Control.fcs
+Please check if the path is normalized to be recognized by c++!
+"

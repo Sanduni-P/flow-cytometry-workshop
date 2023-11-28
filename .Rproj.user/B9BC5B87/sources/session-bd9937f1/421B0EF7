@@ -1,0 +1,28 @@
+{
+    "id": "421B0EF7",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1700457388467.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "id": "62af0588307b4887bde3e0ac07b78552",
+        "name": "cf_log_trans",
+        "title": "cf_log_trans",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 0,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1700457388467,
+    "read_only": false,
+    "read_only_alternatives": []
+}

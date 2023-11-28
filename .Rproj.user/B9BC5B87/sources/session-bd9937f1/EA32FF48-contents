@@ -1,0 +1,2693 @@
+---
+title: "Getting Started with Python for Biologists"
+format: 
+  html:
+    toc: true
+    title-block-banner: utils/images/banner.jpg
+    page-layout: full
+    toc-location: right
+    toc-expand: 1
+    toc-title: Contents
+    embed-resources: true
+    css: utils/css/custom.css
+    smooth-scroll: true
+    theme: 
+      - cerulean
+      - utils/css/custom.scss
+---
+
+:::: {.landing}
+# Overview
+
+This workshop is designed to provide beginners with a foundational understanding of Python programming. The workshop will cover essential programming concepts and gradually introduce more advanced topics, with a focus on using the Pandas library for efficient data handling and analysis.
+
+## Presenter for September 2023
+
+Sandun Rajapaksa
+
+## Learning objectives
+
+By the end of this workshop, you will be able to:
+
+-   Understand fundamental concepts and programming syntax of Python.
+-   Write and execute basic Python programs.
+-   Utilize variables, data types, and operators in Python.
+-   Implement selection structures (conditions) and loops.
+-   Define and use functions for code organization and reusability.
+-   Perform data manipulation and analysis with Pandas.
+-   Perform basic statistics on data with Pandas.
+-   Read and write data to/from various file formats with Pandas.
+-   Produce Table 1 to show summary statistics of data for publications.
+
+## Course Schedule
+
+-   **Part 1**: Python syntax and essential programming concepts 
+    -   Date: 14^th^ and 21^st^ September
+-   **Part 2**: Getting started with pandas
+    -   Date: 5^th^ October
+    -   Time: 10.00 am - 12.30 pm 
+-   **Part 3**: Data manipulation with pandas
+    -   Date: 12^th^ October
+    -   Time: 10.30 am - 1.00 pm   
+::::
+
+
+# Part 1: Python syntax and essential programming concepts 
+
+## Introduction to Python
+
+### What is Python?
+
+-   Python is a dynamic, interpreted general purpose programming language initially created by Guido van Rossum in 1991.
+-   Supports several popular programming paradigms:
+    -   procedural
+    -   object-oriented
+    -   functional
+-   Python is widely used in bioinformatics and scientific computing, as well as many other fields and in industry.
+-   Specifically designed to make programs readable and easy to develop.
+-   Versatile and easy-to-use language.
+-   Python is available on all popular operating systems
+
+### Why learn Python?
+
+-   R and Python are the two most popular programming languages used by data analysts and data scientists. Both are free and open source.
+-   Python is a general-purpose programming language, while R is a statistical programming language.
+-   Google Trend Search Index for R ([blue]{style="color:blue;"}) versus Python ([red]{style="color:red;"}) over the last 10 years:
+
+![](utils/images/RvsPythonTrend.png){fig-align="center"}
+
+::: columns
+::: {.column width="50%"}
+![](utils/images/WhyR.png)
+:::
+
+::: {.column width="50%"}
+![](utils/images/WhyPython.png){width="96%"}
+:::
+:::
+
+### Python Programming Language
+
+-   [Standard library](https://docs.python.org/3.5/library/) provides built-in support for several common tasks:
+    -   numerical & mathematical functions
+    -   interacting with files and the operating system etc.
+-   Has a rich library:
+    -   [Pandas](http://pandas.pydata.org/) - Data Manipulation and Analysis\
+    -   [BioPython](http://biopython.org/) - For Bioinformatics
+    -   [NumPy](https://numpy.org) - Multi-dimensional arrays/matrices along with high-level mathematical functions
+    -   [Matplotlib](https://matplotlib.org) - For Plots
+    -   [TensorFlow](https://www.tensorflow.org) - Machine Learning and AI
+
+### How to use Python?
+
+#### Interactive Mode
+
+-   First invoke the Python interpreter and then work with it interactively.
+-   Give the interpreter Python commands, one at a time.
+-   To start the Python interpreter in interactive mode, type the command python on the command-line (shell prompt), as shown below. ![](utils/images/interactivecode.png)
+
+#### Scripting Mode
+
+-   Scripting mode is also called the *normal mode* (*programming mode*)
+-   Non-interactive
+-   Provide the Python interpreter a text file containing a Python program (script) as input, on the command-line, as follows: ![](utils/images/scriptingcode.png)
+
+#### Jupyter Notebook
+
+-   A web application that allows creating and sharing documents that contain live code, equations, visualizations and explanatory text.
+-   Provides a rich architecture for interactive data science and scientific computing with:
+    -   Over 40 programming languages such as Python, R, Julia and Scala.
+    -   A browser-based notebook with support for code, rich text, math expressions, plots and other rich media.
+    -   Support for interactive data visualization.
+    -   Easy to use tools for parallel computing.
+
+#### Any IDE of your choice
+
+![Google search top 10 results: Integrated development environment Software / python](utils/images/IDEs.png){fig-align="center"}
+
+## Printing values
+
+The `print` command allows printing messages and also to execute some expressions. Below shows some example usages of the `print` statement.
+
+To print a message or text enclose it within quotation marks.
+
+```{python}
+print("Hello World!")
+```
+
+You can print multiple expressions by separating them with commas. Python will insert a space between each element and a newline at the end of the message.
+
+You can change this behaviour using the following two arguments.
+
+-   *sep* - takes a character that separates multiple print statements
+-   *end* - takes a character to print add the end of the statement.
+
+```{python}
+print(1, 2, 3)
+print(1, 2, 3, sep='|')
+print(1, 2, 3, sep=',', end='*')
+```
+
+Some additional example usages of `print` command:
+
+-   Python provides multiple ways to format numbers using f-strings as follows.
+
+    ``` python
+    {data:[align][width][delimiter].[precision]}
+    ```
+
+    -   Align: \< (left) \> (right) \^ (center)
+    -   Width: number of characters
+    -   Delimiter: 1000s separator (normally , or \_)
+    -   Precision: how many digits displayed for decimal numbers or maximum field width for strings 
+        -   f is fixed decimal places
+        -   g is significant figures
+
+    Examples:
+
+    ```{python}
+    # Occupy 10 spaces, align left, show 5 decimal places
+    print(f'This is one way: {22/7:<10.5f}.')
+    # Occupy 20 spaces, align center, no decimal places
+    print(f'This is another way: {22/7:^20.0f}.')
+    ```
+
+-   Using string format method:
+
+    ```{python}
+    print('First name is {} and the last name is "{}!"'.format('john', 'doe'))
+    ```
+
+## Comments
+
+When writing code it is very handy to make notes to yourself about what the code is doing. In Python, any text that appears after the hash symbol '\#' is called a 'comment'. Python interpreter can't see this text, and won't try to run it as commands. Comments are useful for reminding your future self what you were aiming to do with a particular line of code, and what was or wasn't working.
+
+```{python}
+# This is a comment
+```
+
+## Help
+
+The Python `help()` function invokes the interactive built-in help system. If the argument is a string, then the string is treated as the name of a module, function, class, keyword, or documentation topic, and a help page is printed on the console. If the argument is any other kind of object, a help page on the object is displayed.
+
+It's recommended to try it in your interpreter when you need help to write Python program and use Python modules.
+
+The following displays the help on the builtin print function.
+
+```{python}
+help('print')
+```
+
+The following displays the help page on the math module (or library).
+
+::: scrolling
+```{python}
+help('math')
+```
+:::
+
+The help function can also be used on built-in or user-defined classes.
+
+::: scrolling
+```{python}
+help('int')
+```
+:::
+
+## Variables and Assignment
+
+In the previous examples we directly used numbers and strings. However, we might want to assign values to variables for later usage or to deal with more complex expressions. We can associate a name to a value/expression and access the value/expression through the associated name.
+
+```{python}
+x = 2
+print(x)
+```
+
+```{python}
+y = 5 * 3
+print(y)
+```
+
+We cannot use arbitrary strings as variables. The Python variable naming rules are:
+
+-   Must begin with a letter (a - z, A - Z) or underscore (\_).
+-   Other characters can be letters, numbers or \_ only.
+-   Names are case sensitive.
+-   Reserved words cannot be used as a variable name.
+
+## Basic Data Types
+
+There are three basic numeric types in Python:
+
+-   Plain integers with unlimited precision (`int`)
+-   Floating point numbers or numbers with a decimal point (`float`)
+-   Complex numbers (`complex`)
+
+In addition, Booleans (`bool`) are a subtype of integers. They represent truth or false as used in logical operations.
+
+```{python}
+#| echo: true
+x = 23
+y = -9
+z = complex(3, 5)
+print(x, y, z)
+
+```
+
+```{python}
+#| echo: true
+p = 5.67
+q = -22/7
+r = 2e-3
+print(p, q, r, sep='\n')
+```
+
+You can check the type of values using the built-in function `type()` as follows.
+
+``` {.python}
+type(0)
+type(22/7)
+type(complex(1, 2))
+type(True)
+type(False)
+```
+
+```{python}
+#| echo: false
+print(type(0))
+print(type(22/7))
+print(type(complex(1, 2)))
+print(type(True))
+print(type(False))
+```
+
+Python converts numbers internally in an expression containing mixed types to a common type for evaluation. But sometimes, we need to coerce a number explicitly from one type to another to satisfy the requirements of an operator or function parameter.
+
+```{python}
+x = "5"
+print(int(x))        # convert x to a plain integer
+print(float(x))      # convert x to a floating-point number
+
+x = 3
+y = 7
+# convert x to a complex number with real part x and imaginary part zero
+print(complex(x))    
+# convert x and y to a complex number with real part x and imaginary part y
+print(complex(x, y)) 
+```
+
+## Sequences
+
+The most basic data structure in Python is the sequence. Sequences are compound data types, and used to group together other values. Each element of a sequence is assigned a number - its position or index. The first index is zero, the second index is one, and so forth.
+
+There are certain things you can do with all sequence types. These operations include indexing, slicing, adding, multiplying, and checking for membership. In addition, Python has many built-in functions to be used with sequence types: e.g., for finding the length of a sequence and for finding its largest and smallest elements.
+
+Python has seven built-in types of sequences (strings, bytes, lists, tuples, bytearrays, buffers, and range objects); the most common one is lists, which we will discuss now.
+
+### Lists
+
+The list is the most versatile data-type available in Python which can be written as a list of comma-separated values (items) between square brackets. Items in a list need not all have the same type. Creating a list is as simple as listing different comma-separated values between square brackets.
+
+```{python}
+list1 = ['ATG', 'TCA', 23, 12]
+list2 = [1, 2, 3, 4, 5 ]
+list3 = ["a", "b", "c", "d", 'pqr', 12.345]
+```
+
+#### Accesing values in Lists
+
+To access values in lists, use square brackets for slicing along with the index or indices to obtain value available at that index.
+
+```{python}
+list1 = ['ATG', 'TCA', 23, 12]    # create a list 
+print("list1[0] -", list1[0])     # print the first element in the list
+
+list2 = [1, 2, 3, 4, 5 ]          # create a list 
+print("list2[1:5] -", list2[1:5]) # print elements from 2 to 6
+```
+
+A few other examples of indexing and slicing:
+```{python}
+list1 = ['Adenine', 'Cytosine', 'Guanine', 'Thymine']
+print(list1[2])
+print(list1[-3])
+print(list1[2:])
+print(list1[:-2])
+```
+
+#### Updating Lists
+
+You can update single or multiple elements of lists by giving the slice on the left-hand side of the assignment operator. This will access single or multiple elements as mentioned above. Then, provide the new values that you need to change on the right-hand side of the assignment operator. Make sure the number of accessed elements are the same as the number of assigning (new) elements. 
+
+```{python}
+list1 = ['ATG', 'TCA', 23, 12]              # create a list
+print("Value at index 3 : ", list1[3])      # print the 4th element
+
+list1[3] = 'GGC'                            # update the 4th element
+print("New value at index 3 : ", list1[3])  # print the 4th element
+```
+
+Additionally, you can add elements to the end of a list (even an empty list) with the `append()` function.
+
+```{python}
+list1.append('CCG')                         # insert element at the end of the list
+print(list1)                                # print the list
+```
+
+#### Deleting List elements
+
+To remove a list element, you can use either the `del` statement if you know exactly which element(s) you are deleting. 
+
+```{python}
+print("List of 5 elements =", list1)          # print list1 
+del list1[2]                                  # delete element based on its index (3rd element)
+print("After deleting 2nd element =", list1)  # print list1 
+```
+
+The `remove()` method of a list object can also be used to delete the element based on the value.
+
+```{python}
+list1.remove('TCA')                           # delete element based on its value ('TCA')
+print("After removing TCA element =",list1)   # print list1 
+```
+
+Alternatively, you can use `del` statement after using the `index()` function to find the index of the element based on its value:
+```{python}
+indx = list1.index('GGC')                     # get index of element 'GGC'
+del list1[indx]                               # delete element based on its index 
+print("After deleting GGC element =", list1)  # print list1 
+```
+
+#### Other List operations
+
+Lists respond to the + and \* operators (much like strings, discussed next), where '+' means concatenation and '\*' means repetition, and the result is a new list. In fact, lists respond to all general sequence operations.
+
+```{python}
+list1 = [1, 2, 3]
+print("Length of the list =", len(list1))     # length
+```
+
+```{python}
+list2 = [4, 5, 6]
+print("Concatenated list =", list1 + list2)   # concatenation
+```
+
+```{python}
+print("Repeating list elements =", list1 * 3) # repetition 
+```
+
+```{python}
+print("Is 3 a member of list1?", 3 in list1)  # membership
+```
+
+```{python}
+for x in list1:                               # iteration (discussed in detail later)
+  print(x, end=' ')
+```
+
+### Strings
+
+Strings are amongst the most popular types in Python. We can create them simply by enclosing characters in quotes. Python treats single quotes (\'\') the same as double quotes (\"\"). That is, \'aaa\' and  \"aaa\" are the same. A string can also be triple quoted, either with three single quotes, as \'\'\'aaa\'\'\', or three double quotes, as \"\"\"aaa\"\"\".
+
+```{python}
+#| echo: true
+#| error: true
+str1 = 'This is a string'
+str2 = "This is also a string"
+str3 = """This is a string that extends 
+over multiple lines"""
+print(str1, str2, str3, sep='\n')
+```
+
+Strings can be concatenated (glued together) with the + operator, and repeated with \* (similar to lists). This is another way to create new strings.
+
+```{python}
+words = 'This' + 'is' + 'concatenation' # concatenation
+print("Concatenation =", words)
+print("Repetition =", 'ACG' * 3)        # repetition
+print("Length =", len(words))           # length
+print("Membership =", "is" in words)    # membership
+```
+
+
+```{python}
+for x in words:      # iteration (discussed in detail later)
+  print(x, end='|')
+```
+Python does not support a character type; these are treated as strings of length one, thus also considered a substring. Individual elements can be accessed with an index. Substrings can be specified with the slice notation: two indices separated by a colon.
+
+Strings can be accessed and manipulated using similar operations we introduced above for lists.
+
+```{python}
+print(words)
+print(words[4])
+print(words[0:6])
+print(words[6:])
+print(words[-15:])
+```
+
+```{python}
+#| error: true
+text = "ATGTCATTTGT"
+text[0:2] = "CCC"
+```
+
+To change a value in a string, `replace()` function can be used. 
+```{python}
+long_text = """Betty bought some butter. 
+But the butter was bitter. 
+So, betty baught more butter to make bitter butter better"""
+print("Replaced text = ", long_text.replace("butter", "egg"))
+```
+
+
+The `in` operator lets you check if a substring is contained within a larger string, but it does not tell you where the substring is located. This is often useful to know and python provides the `.find()` method which returns the index of the first occurrence of the search string, and the `.rfind()` method to start searching from the end of the string. If the search string is not found in the string both these methods return -1.
+
+```{python}
+dna = "ATGTCACCGTTTGGC"
+print("TCA is at position:", dna.find("TCA"))
+print("The last Cytosine is at position:", dna.rfind('C'))
+print("Number of Adenines:", dna.count("A"))
+```
+
+When we read text from files (which we will see in the next workshop), often there is unwanted whitespace at the start or end of the string. We can remove leading whitespace with the `.lstrip()` method, trailing whitespace with `.rstrip()`, and whitespace from both ends with `.strip()`.
+
+All of these methods return a copy of the changed string, so if you want to replace the original you can assign the result of the method call to the original variable.
+
+```{python}
+string = "           This is a string with leading and trailing spaces             "
+print('|', string, '|')
+print('|', string.lstrip(), '|')
+print('|', string.rstrip(), '|')
+print('|', string.strip(), '|')
+```
+
+You can split a string into a list of substrings using the `.split()` method, supplying the delimiter as an argument to the method. If you don't supply any delimiter the method will split the string on whitespace by default (which is very often what you want!)
+
+```{python}
+seq = "ATG TCA CCG GGC"
+codons = seq.split(" ")
+print(codons)
+```
+
+To split a string into its component characters you can simply cast the string to a list:
+
+```{python}
+bases = list(seq)
+print(bases)
+```
+
+`.split()` is the counterpart to the `.join()` method that lets you join the elements of a list into a string only if all the elements are of type String.
+
+```{python}
+print(codons)
+print("|".join(codons))
+```
+
+We also saw earlier that the + operator lets you concatenate strings together into a larger string. Note that this operator only works on variables of the same type. If you want to concatenate a string with an integer (or some other type), first you have to cast the integer to a string with the `str()` function.
+
+```{python}
+s = "chr"
+chrom_number = 2
+print(s + str(chrom_number))
+```
+
+### Dictionary
+
+Sometimes we want to access data by some useful name rather than an index. For example, as a result of some experiment we may have a set of genes and corresponding expression values. We could put the expression values in a list, but then we'd have to remember which index in the list correspond to which gene and this would quickly get complicated. For these situations a dictionary is a very useful data structure.
+
+Dictionaries contain a mapping of keys to values (like a word and its corresponding definition in a dictionary). The keys of a dictionary are unique (i.e. they cannot repeat). Dictionaries do not store data in any particular order.
+
+```{python}
+dna = {"A": "Adenine", "C": "Cytosine", "G": "Guanine", "T": "Thymine"}
+print(dna)
+```
+
+You can access values in a dictionary using the key inside square brackets.
+
+```{python}
+print("A represents", dna["A"])
+print("G represents", dna["G"])
+```
+
+An error is triggered if a key is absent from the dictionary.
+
+```{python}
+#| error: true
+print("N represents", dna["N"])
+```
+
+You can access values safely with the `get` method, which gives back `None` if the key is absent and you can also supply a default values.
+
+```{python}
+print("N represents", dna.get("N"))
+print("N represents (with a default value)", dna.get("N", "unknown"))
+```
+
+Examples of some operators used with dictionaries.
+
+```{python}
+dna = {"A": "Adenine", "C": "Cytosine", "G": "Guanine", "T": "Thymine"}
+
+# check if a key is in/not in a dictionary
+print("G" in dna)
+print("Y" not in dna)
+```
+
+```{python}
+# length of a dictionary
+print(len(dna))
+```
+
+```{python}
+print(dna)
+# assign new values to a dictionary
+dna['Y'] = 'Pyrimidine'
+print(dna)
+```
+
+```{python}
+# change value of an existing key
+dna['Y'] = 'Cytosine or Thymine'
+print(dna)
+```
+
+```{python}
+# list all the keys
+print(list(dna.keys()))
+# list all values
+print(list(dna.values()))
+# list all key value pairs
+print(list(dna.items()))
+```
+
+## Operators and Expressions
+
+Python language supports the following types of operators.
+
+-   Arithmetic operators
+-   Comparison (i.e., relational) operators
+-   Assignment operators
+-   Bitwise operators
+-   Logical operators
+-   Membership operators
+-   Identity operators
+
+Let's look at some of these types one by one.
+
+#### Python Arithmetic Operators
+
+```{=html}
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">+</td>
+      <td>Addition - Adds values on either side of the operator</td>
+    </tr>
+    <tr>
+      <td>-</td>
+      <td>Subtraction - Subtracts right hand operand from left hand operand</td>
+    </tr>
+    <tr>
+      <td>*</td>
+      <td>Multiplication - Multiplies values on either side of the operator</td>
+    </tr>
+    <tr>
+      <td>/</td>
+      <td>Division - Divides left hand operand by right hand operand
+</td>
+    </tr> 
+    <tr>
+      <td>%</td>
+      <td>Modulus - Divides left hand operand by right hand operand and returns remainder</td>
+    </tr>
+    <tr>
+      <td>**</td>
+      <td>Exponent - Performs exponential (power) calculation on operators</td>
+    </tr>
+    <tr>
+      <td>//</td>
+      <td>Floor (or integer) division - Division such that the fractional part of the result is removed, and only the integer part remains.</td>
+    </tr>
+  </tbody>
+</table>
+```
+#### Python Comparison Operators
+
+```{=html}
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">==</td>
+      <td>Checks if the value of two operands are equal; if yes then condition becomes true.</td>
+    </tr>
+    <tr>
+      <td>!=</td>
+      <td>Checks if the value of two operands are not equal; if values are not equal then condition becomes true.</td>
+    </tr>
+    <tr>
+      <td><></td>
+      <td>Checks if the value of two operands are not equal. This is similar to the != operator.</td>
+    </tr>
+    <tr>
+      <td>></td>
+      <td>Checks if the value of left operand is greater than the value of right operand.</td>
+    </tr>
+    <tr>
+      <td><</td>
+      <td>Checks if the value of left operand is less than the value of right operand.</td>
+    </tr>
+    <tr>
+      <td>>=</td>
+      <td>Checks if the value of left operand is greater than or equal to the value of right operand.</td>
+    </tr>
+    <tr>
+      <td><=</td>
+      <td>Checks if the value of left operand is less than or equal to the value of right operand.</td>
+    </tr>
+  </tbody>
+</table>
+```
+#### Python Assignment Operators
+
+```{=html}
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">=</td>
+      <td>Simple assignment operator, assigns values from right side operands to left side operand</td>
+    </tr>
+    <tr>
+      <td align="center">+=</td>
+      <td>Add AND assignment operator, it adds right operand to the left operand and assign the result to left operand (Ex: i += 1 is same as i = i + 1)</td>
+    </tr>
+  </tbody>
+</table>
+```
+Similar descriptions follow for the remaining arithmetic operators (i.e., -=, \*=, /=, %=, \*\*=, //=)
+
+#### Python Logical Operators
+
+```{=html}
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">and</td>
+      <td>Logical AND operator - If both the operands are true then condition becomes true.</td>
+    </tr>
+    <tr>
+      <td>or</td>
+      <td>Logical OR Operator - If any of the two operands is true (non zero) then condition becomes true.</td>
+    </tr>
+    <tr>
+      <td>not</td>
+      <td>Logical NOT Operator - Reverses the logical state of its operand. If an expression is true then Logical NOT of that is false.</td>
+    </tr>
+  </tbody>
+</table>
+```
+#### Python Membership Operators
+
+Python has membership operators, which test for membership in a sequence, such as strings, lists, or tuples. There are two membership operators.
+
+```{=html}
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">in</td>
+      <td>Evaluates to true if it finds a variable in the specified sequence and false otherwise.</td>
+    </tr>
+    <tr>
+      <td>not in</td>
+      <td>Evaluates to true if it does not finds a variable in the specified sequence and false otherwise.</td>
+    </tr>
+  </tbody>
+</table>
+```
+#### Python Identity Operators
+
+```{=html}
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">is</td>
+      <td>Evaluates to true if the variables on either side of the operator point to the same object and false otherwise.</td>
+    </tr>
+    <tr>
+      <td>is not</td>
+      <td>Evaluates to false if the variables on either side of the operator point to the same object and true otherwise.</td>
+    </tr>
+  </tbody>
+</table>
+```
+#### Operator Precedence in Python
+
+The following table lists all operators we discussed in this Chapter, from highest precedence to lowest.
+
+```{=html}
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">**</td>
+      <td>Exponentiation</td>
+    </tr>
+    <tr>
+      <td>~, +, -</td>
+      <td>Complement, unary plus and minus (method names for the last two are +@ and -@)</td>
+    </tr>
+    <tr>
+      <td>*, /, %, //</td>
+      <td>Multiply, divide, modulo and floor division</td>
+    </tr>
+    <tr>
+      <td>+, -</td>
+      <td>Addition and subtraction</td>
+    </tr>
+    <tr>
+      <td>>>, <<</td>
+      <td>Right and left bitwise shift</td>
+    </tr>
+    <tr>
+      <td>&</td>
+      <td>Bitwise 'AND'</td>
+    </tr>
+    <tr>
+      <td>^, |</td>
+      <td>Bitwise exclusive `OR' and regular `OR'</td>
+    </tr>
+    <tr>
+      <td><=, <,>, >=</td>
+      <td>Comparison operators</td>
+    </tr>
+    <tr>
+      <td><>, ==, !=</td>
+      <td>Equality operators</td>
+    </tr>
+    <tr>
+      <td>= , %=, /=, //=, -=, +=, *=, **=</td>
+      <td>Assignment operators</td>
+    </tr>
+    <tr>
+      <td>is, is not</td>
+      <td>Identity operators</td>
+    </tr>
+    <tr>
+      <td>in, not in</td>
+      <td>Membership operators</td>
+    </tr>
+    <tr>
+      <td>not, or, and</td>
+      <td>Logical operators</td>
+    </tr>
+  </tbody>
+</table>
+```
+## Control Structures in Python
+
+In a program, *control flow* (or *flow of control*) refers to the order in which individual statements of the program are executed. Similarly, control flow in an algorithm is the order in which individual steps of the algorithm are executed.
+
+So far, we have considered *sequential control flow*, i.e., statements getting executed from top to bottom, in the order they appear in the program. The sequential flow of control is the default behavior. However, we often need to alter this flow when we write programs, because the problems we can solve with sequential control flow alone are limited to simple (or, as one might say, trivial) problems. In other words, there are many problems that cannot be solved with the sequential control flow alone.
+
+Many problems that we encounter are complex enough that they require programs with enhanced control flows. For this, most programming languages provide at least three *control structures* for altering the default sequential flow. These control structures are known as *selection*, *loop*, and *subprogram*. Together with the default sequential flow, we have four control structures for specifying the control flow as shown below.
+
+![](utils/images/control-structures.png){fig-align="center"}
+
+### Selection Control Structure
+
+#### `if` structure
+
+The `if` structure in Python is similar to that of other languages. It contains an expression followed by a set of statements to be executed if the expression is evaluated as true.
+
+``` python
+if expression:
+  statement_1
+  statement_2
+  ...
+  statement_n
+```
+
+Note that, in Python, all statements indented by the same number of character spaces after a programming construct are considered to be part of a single block of code. Python uses indentation as its method of grouping statements.
+
+#### `if ... else` structure
+
+To implement the selection control structure shown in subfigure (b) above with both blocks A and B specified, the `else` keyword can be combined with the `if` keyword. The `else` keyword is followed by the code that gets executed if the `if`-body does not get executed (i.e., conditional expression is not evaluated to true).
+
+The `else` part is optional and there could be at most one `else` part following an `if` part. Further, an `else` part cannot exist alone; it must be paired with an `if` part.
+
+``` python
+if expression:
+  statement(s)
+else:
+  statement(s)
+```
+
+#### Multi-way Selection with the `elif` Keyword
+
+The `elif` keyword (meaning "else-if") allows us to implement multi-way selection, going beyond the two-way selection in the `if-else` structure. This means, we can select one block of code for execution from among many (\> 2). For this, we need to specify multiple conditional expressions for truth value and execute a block of code as soon as the corresponding expression evaluates to true.
+
+An `elif` part is optional and there can be an arbitrary number of `elif` parts following an `if` part.
+
+``` python
+if expression_1:
+  statement(s)
+elif expression_2:
+  statement(s)  
+elif expression_3:
+  statement(s)  
+...
+else:
+  statement(s)
+```
+
+The `if...elif` structure is a substitute for the "switch-case" structure in some other languages such as C.
+
+### Loop Control Structure
+
+Python provides two loop structures: the `for` loop and the `while` loop. We can also have nested loops.
+
+#### The `for` loop
+
+The `for` loop construct is used to repeat a statement or block of statements specified number of times. The `for` loop can also iterate over the items of any sequence (a list or a string), in the order that they appear in the sequence.
+
+```{.python}
+for iterating_var in sequence:
+   statements(s)
+```
+
+The block of statements executed repeatedly is called the loop body. The loop body is *indented*.
+
+If the sequence contains an expression list, it is evaluated first. Then, the first item in the sequence is assigned to the iterating variable `iterating_var` and the loop body is executed. This concludes one iteration of the loop. Next the second iteration of the loop body is executed after the second item is assigned to the iterating variable `iterating_var`. Similarly, the loop body is executed repeatedly, with a unique item in the list assigned to `iterating_var` in each iteration, until the entire sequence is exhausted.
+
+**The `range()` function:** If we do need to iterate over a sequence of numbers, the built-in function `range()` comes in handy. It generates lists containing arithmetic progressions. Implementation of `range()` is as either `range(stop)` or `range(start, stop[, step])`. Here are four examples.
+
+```{python}
+for i in range(10):
+    print(i, end=' ')
+```
+
+```{python}
+for i in range(5, 10):
+    print(i, end=' ')
+```
+
+```{python}
+for i in range(0, 10, 3):
+    print(i, end=' ')
+```
+
+```{python}
+for i in range(-10, -100, -30):
+    print(i, end=' ')
+```
+
+To iterate over the indices of a list or sequence using a `for` loop, you can combine `range()` and `len()` functions as follows:
+
+```{python}
+list_a = ['John', 'had', 'a', 'little', 'puppy']
+# using range and len functions
+for i in range(len(list_a)):
+  print(i, list_a[i])
+```
+
+Or using `enumerate()` function:
+
+```{python}
+# using enumerate function
+for elem in enumerate(list_a):
+  print(elem)
+```
+
+#### The `while` loop
+
+A `while` loop in Python repeatedly executes the loop body as long as a given condition is true. The condition is specified by an expression.
+
+```{.python}
+while expression:
+  statement(s)
+```
+
+The block of statements executed repeatedly is the loop body, which is *indented*, as in the `for` loop.
+
+The condition to execute the loop body is considered true if the expression is true or it is any non-zero value. The loop iterates while the condition is true. When the condition becomes false, program control passes to the line immediately following the loop body.
+
+Note that the `while` loop might not ever run. When the condition is tested and the result is false, the loop body will be skipped and the first statement after the while loop will be executed.
+
+#### The `break` keyword
+
+The `break` keyword is used inside a loop and is used for terminating the current iteration of the loop body immediately; i.e., to break out of the smallest enclosing `for` or `while` loop. The control will be transferred to the first statement following the loop body. If you are inside the inner loop of a nested loop, then the break statement inside that inner loop transfers the control to the immediate outer loop. The `break` statement can be used to terminate an infinite loop or to force a loop to end before its normal termination.
+
+```{python}
+n = 10;
+for var in range(0, n):
+    print(var)
+    if (var == 5):
+        print("Countdown Aborted")
+        break;
+```
+
+#### The `continue` keyword
+
+The `continue` keyword inside a loop causes the program to skip the rest of the loop body in the current iteration, causing it to continue with the next iteration of the loop.
+
+```{python}
+for i in range(-2,3):
+  if i == 0 :
+      continue
+  print("5 divided by ", i, " is: ", (5.0/i))
+```
+
+### Functions
+
+A function is a block of organized, reusable code that is used to perform a single task. Functions are the subprogram control structure in Python. Functions provide better modularity for our programs and a high degree of code reuse.
+
+As you already know, Python gives you many built-in functions like `print()`, etc. But you can also create your own functions which are called *user-defined functions*.
+
+``` python
+def function_name( parameters ): 
+  function_suite
+return [expression]
+```
+
+By default, parameters have a positional behavior; thus when invoking (calling) the function you need to list them in the same order that they were defined. Defining a function only gives it a name, specifies the parameters that are to be included in the function and structures the blocks of code. Once the function is defined, you can execute it by calling it from your (main) program, another function or directly from the Python prompt. 
+
+In the following example, we define and call the `readDataset()` function. 
+```{python}
+# Function definition to read the melanoma_dataset.txt file
+# This function does not require any parameters
+def readDataset():
+  with open('data/melanoma_dataset.txt') as f:
+    melanoma = f.read().splitlines()
+  return melanoma
+
+# Now you can call readDataset function
+melanoma = readDataset() 
+print(melanoma)
+```
+
+In the following example, we define two functions `printHead()` and `printTail()` to print the top 5 and bottom 5 rows of a list. Note that in this example, the return is optional (the program will work even without the return).
+```{python}
+# function definition to print the top 5 elements in a list
+def printHead( inp_list):
+  for i in range(5):
+    print(inp_list[i])
+
+# function definition to print the bottom 5 elements in a list
+def printTail( inp_list):
+  for i in range(len(inp_list)-5, len(inp_list)):
+    print(inp_list[i])
+```
+
+```{python}
+# function call to printHead with melanoma dataset as an input parameter to the function
+printHead(melanoma)
+```
+
+```{python}
+# function call to printTail with melanoma dataset as an input parameter to the function
+printTail(melanoma)
+```
+
+## Exercise 1
+
+1.  Print all DNA codons. The following output (in order) is expected.
+
+```{python}
+#| code-fold: true
+import itertools    # importing a library (Check the Installation guide on how to install a python library)
+
+# check the help page of itertools
+# this gives the all possible combination of A, C, G and T with a string size of 3
+# In other words it returns the codons
+codon_table = itertools.product(['A', 'C', 'G', 'T'], repeat=3)
+codonl = list(codon_table) # convert codons to a list
+print(codonl)  
+```
+
+*Hint: First import itertools. Then try the command `help('itertools')`*
+
+2.  Create a dictionary of DNA codons and corresponding protein residues. [See the DNA codon table](https://en.wikipedia.org/wiki/DNA_and_RNA_codon_tables).
+
+```{python}
+#| code-fold: true
+amino_acid_list = [
+  'K', 'N', 'K', 'N', 'T', 'T', 'T', 'T', 'R', 'S', 'R', 'S', 'I', 'I', 'M', 'I',
+  'Q', 'H', 'Q', 'H', 'P', 'P', 'P', 'P', 'R', 'R', 'R', 'R', 'L', 'L', 'L', 'L',
+  'E', 'D', 'E', 'D', 'A', 'A', 'A', 'A', 'G', 'G', 'G', 'G', 'V', 'V', 'V', 'V',
+  '_', 'Y', '_', 'Y', 'S', 'S', 'S', 'S', '_', 'C', 'W', 'C', 'L', 'F', 'L', 'F']
+
+#function to create a dictionary from keys and values
+def convert_list_to_dict(keys, values):
+   res_dict = {}                      # empty dictionary
+   for i in range(len(keys)):         # iterate over the list of keys
+       res_dict[keys[i]] = values[i]  # assign each value to corresponding key in the list
+   return res_dict                    # return a dictionary
+
+# codol is a list of codons. However, each element is not a string. It is a tuple Ex: ('A', 'G', 'T')  
+# So, joining the three items in each tuple to create a string Ex: AGT
+codon_list = []
+for elem in enumerate(codonl):        # looping through each element in codonl list
+  codon_list.append("".join(elem[1])) # joining the three items in the tuple and appending it to the codon_list
+
+# create a dictionary from keys and values
+# keys is a list containing codons: codon_list 
+# values is a list of amino acids residues and _ for undefined: amino_acid_list
+codon_table = convert_list_to_dict(codon_list, amino_acid_list)  
+# print dictionary
+print(codon_table) 
+```
+
+3.  Write a function `translate()` that splits a dna into the individual codons and then use the above dictionary to map between codon sequences and the amino acids they encode. Use the following dna sequence to test the function.
+
+```{python}
+dna = "GTT GGG ACG AAT TTT GCA CCA CAA CCG TTC GTA TAT GGG GAA AGG"
+```
+
+```{python}
+#| code-fold: true
+# function to translate a dna to amino acid (protein) sequence
+def translate(dna_split):
+  protein = ""
+  for indx,val in enumerate(dna_split): # loop through each element in the dna_split list
+    protein += codon_table[val] # append the corresponding amino acid from the codon_table
+                                # get the value from the key
+  return protein  # return the protein sequence
+
+dna = "GTT GGG ACG AAT TTT GCA CCA CAA CCG TTC GTA TAT GGG GAA AGG"
+dna_split = dna.split()     # split the dna sequence based on spaces
+print(translate(dna_split)) # function call to translate() to translate the dna to a protein sequence 
+```
+
+## Exercise 2
+
+In the second part of this workshop, we will explore the application of the pandas library for data manipulation and analysis. This library offers a range of functions tailored for statistical analysis. By the end of this workshop, we will create a Table 1 summary employing the melanoma dataset found within the boot library of R. In this workshop, we will use the acquired knowledge to print the contents of Table 1 using the same dataset. It's worth noting that for your future tasks, we recommend utilizing Python libraries that streamline this process and make it more efficient. Nevertheless, as part of this hands-on practical exercise, we are deliberately undertaking this task from the ground up.
+
+**Create a table 1 summary using the melanoma dataset. A function to read the melanoma dataset into a list has been prepared for your convenience.**
+
+```{python}
+import statistics
+
+def readDataset():
+  with open('data/melanoma_dataset.txt') as f:
+    melanoma = f.read().splitlines()
+  return melanoma
+```
+
+**Solution**:
+
+```{python}
+#| code-fold: true
+import statistics
+
+# Function to read melanoma dataset
+# !! Make sure the melanoma.txt file is in the same folder as this file
+# returns the melanoma dataset
+def readDataset():
+  with open('data/melanoma_dataset.txt') as f:
+    melanoma = f.read().splitlines()
+  return melanoma
+
+# Function to get a sublist of the melanoma dataset corresponding to a certain factor (sex, ulcer, age, thickness) 
+# given a certain status in[melanoma death (1), alive (2), non-melanoma death (3)]
+# returns a list from the melanoma dataset
+def getSublist(dataset, factor, status_type):
+  # Create a header list by splitting the first row of the dataset list 
+  # When the file is read each row is read as a string. So, splitting based on space to get a list
+  header = dataset[0].split(" ")
+  
+  # find the (column) index of the header list that contain the value factor
+  colnum = -1
+  for i in range(len(header)):  # looping through each element in the header
+    if header[i] == factor:     # checks if each element in the header is equal to the factor (sex/ulcer/age/thickness)
+      colnum = i
+  
+  # create an empty list to add data later
+  sublist = []
+  
+  # append the data of corresponding to the factor if the status matches the status_type argument
+  for i in range(1, len(dataset)):       # looping through each row in the dataset starting from the 1st row (intentionally skipping the header row)
+    row = dataset[i].split(" ")          # When the file is read each row is read as a string. So, splitting based on space to get a list
+    
+    if int(row[1]) == status_type:       # check if the status column of the current row is equal to the status_type argument (send when calling the function)
+      sublist.append(float(row[colnum])) # append the value of in the column corresponding to the factor to the list 
+      
+  return sublist    # return the created list
+
+# Function to print statistics 
+# Takes a dataset, factor and a data_type (category/numeric) as input and prints content of the table 1
+def printStatRow(dataset, factor, data_type):
+  
+  data_1 = getSublist(dataset, factor, 1)      # function call to sublist function [Line 14-35]
+  data_2 = getSublist(dataset, factor, 2)      # function call to sublist function [Line 14-35]
+  data_3 = getSublist(dataset, factor, 3)      # function call to sublist function [Line 14-35]
+  
+  if data_type == "category":                  # if data_type is category print only the sum and percentage (For sex/ulcer)
+    
+    sum_status1_0 = data_1.count(0)            # count the number of 0s in the return sublist for status = 1 (melanoma death)
+    sum_status1_1 = data_1.count(1)            # count the number of 1s in the return sublist for status = 1 (melanoma death)
+    
+    sum_status2_0 = data_2.count(0)            # count the number of 0s in the return sublist for status = 2 (alive)
+    sum_status2_1 = data_2.count(1)            # count the number of 1s in the return sublist for status = 2 (alive)
+    
+    sum_status3_0 = data_3.count(0)            # count the number of 0s in the return sublist for status = 3 (non-melanoma death)
+    sum_status3_1 = data_3.count(1)            # count the number of 1s in the return sublist for status = 3 (non-melanoma death)
+    
+    tot_0 = sum_status1_0 + sum_status2_0 + sum_status3_0 # total across all three status for value 0s
+    tot_1 = sum_status1_1 + sum_status2_1 + sum_status3_1 # total across all three status for value 1s
+    
+    # print statement for sex/ulcer (0) case (refer the output)
+    out1 = str(sum_status1_0) + " (" + f'{sum_status1_0*100/(sum_status1_0 + sum_status1_1):.2f}' + "%)"
+    out2 = str(sum_status2_0) + " (" + f'{sum_status2_0*100/(sum_status2_0 + sum_status2_1):.2f}' + "%)"
+    out3 = str(sum_status3_0) + " (" + f'{sum_status3_0*100/(sum_status3_0 + sum_status3_1):.2f}' + "%)"
+    out4 = str(tot_0) + " (" + f'{tot_0*100/(tot_0 + tot_1):.2f}' + "%)"
+    pref = factor + "(0)"
+    print(f'{pref:<30}| {out1:^20} | {out2:^20} | {out3:^20} | {out4:^20} |')
+    
+    # print statement for sex/ulcer (1) case (refer the output)
+    out1 = str(sum_status1_1) + " (" + f'{sum_status1_1*100/(sum_status1_0 + sum_status1_1):.2f}' + "%)"
+    out2 = str(sum_status2_1) + " (" + f'{sum_status2_1*100/(sum_status2_0 + sum_status2_1):.2f}' + "%)"
+    out3 = str(sum_status3_1) + " (" + f'{sum_status3_1*100/(sum_status3_0 + sum_status3_1):.2f}' + "%)"
+    out4 = str(tot_1) + " (" + f'{tot_1*100/(tot_0 + tot_1):.2f}' + "%)"
+    pref = factor + "(1)"
+    print(f'{pref:<30}| {out1:^20} | {out2:^20} | {out3:^20} | {out4:^20} |')
+    print(' ')
+    
+  elif data_type == "numeric":                            # if data_type is numeric print the mean, median, standard deviation, min and max (For age/thickness)
+    mean_status1 = statistics.mean(data_1)                # mean of the sublist for status = 1 (melanoma death)
+    mean_status2 = statistics.mean(data_2)                # mean of the sublist for status = 2 (alive)
+    mean_status3 = statistics.mean(data_3)                # mean of the sublist for status = 3 (non-melanoma death)
+    mean_tot = statistics.mean(data_1 + data_2 + data_3)  # mean of all three status types (1,2 and 3)
+    
+    # same as above, but computing the standard deviation
+    std_status1 = statistics.stdev(data_1)
+    std_status2 = statistics.stdev(data_2)
+    std_status3 = statistics.stdev(data_3)
+    std_tot = statistics.stdev(data_1 + data_2 + data_3)
+    
+    # first print statement for age/thickness (refer the output)
+    out1 = f'{mean_status1:.2f}' + " (" + f'{std_status1:.2f}' + ")"
+    out2 = f'{mean_status2:.2f}' + " (" + f'{std_status2:.2f}' + ")"
+    out3 = f'{mean_status3:.2f}' + " (" + f'{std_status3:.2f}' + ")"
+    out4 = f'{mean_tot:.2f}' + " (" + f'{std_tot:.2f}' + ")"
+    pref = factor + " Mean (SD)"
+    print(f'{pref:<30}| {out1:^20} | {out2:^20} | {out3:^20} | {out4:^20} |')
+    
+    # same as above [Line 77-80], but computing the median
+    median_status1 = statistics.median(data_1)
+    median_status2 = statistics.median(data_2)
+    median_status3 = statistics.median(data_3)
+    median_tot = statistics.median(data_1 + data_2 + data_3)
+    
+    # same as above [Line 77-80], but computing the min
+    min_status1 = min(data_1)
+    min_status2 = min(data_2)
+    min_status3 = min(data_3)
+    min_tot = min(data_1 + data_2 + data_3)
+    
+    # same as above [Line 77-80], but computing the max
+    max_status1 = max(data_1)
+    max_status2 = max(data_2)
+    max_status3 = max(data_3)
+    max_tot = max(data_1 + data_2 + data_3)
+    
+    # second print statement for age/thickness (refer the output)
+    out1 = f'{median_status1:.2f}' + " (" + f'{min_status1:.2f}, ' + f'{max_status1:.2f}' + ")"
+    out2 = f'{median_status2:.2f}' + " (" + f'{min_status2:.2f}, ' + f'{max_status2:.2f}' + ")"
+    out3 = f'{median_status3:.2f}' + " (" + f'{min_status3:.2f}, ' + f'{max_status3:.2f}' + ")"
+    out4 = f'{median_tot:.2f}' + " (" + f'{min_tot:.2f}, ' + f'{max_tot:.2f}' + ")"
+    pref = factor + " Median (Min, Max)"
+    print(f'{pref:<30}| {out1:^20} | {out2:^20} | {out3:^20} | {out4:^20} |')
+    print(' ')
+  else:     # only works for data_type category and numeric, otherwise
+    assert False;   # this line will force the program to stop
+  
+# Function to table 1 summary  
+def table1(dataset):
+  # print the header of the table 1
+  print(f'{" |":>31} {"Melanoma Death":^20} | {"Alive":^20} | {"Non-Melanoma Death":^20} | {"Overall":^20} |')
+  printStatRow(dataset, "sex", "category")          # function call to printStatRow function [Line 39-123] with factor=sex, data_type=category
+  printStatRow(dataset, "ulcer", "category")        # function call to printStatRow function [Line 39-123] with factor=ulcer, data_type=category
+  printStatRow(dataset, "age", "numeric")           # function call to printStatRow function [Line 39-123] with factor=age, data_type=numeric
+  printStatRow(dataset, "thickness", "numeric")     # function call to printStatRow function [Line 39-123] with factor=thickness, data_type=numeric
+  
+melanoma = readDataset()       # function call to readDataset() [Line 6-9]
+table1(melanoma)               # function call to table1() [Line 126-132]
+```
+
+# Part 2: Getting started with pandas
+
+Pandas is a powerful and widely used library in Python for data manipulation and analysis. It provides versatile data structures, such as DataFrames and Series, along with a variety of functions and methods for efficiently handling and processing structured data. In this session, we explore some functionalities of Pandas library that is useful for biological data analysis.
+
+Customarily, we import the library as follows:
+
+```{python}
+import pandas as pd
+```
+
+## Basic data structures in pandas
+
+Pandas provides two types of classes for handling data:  **`Series`** and **`DataFrame`**.
+
+### Series
+
+`Series` is a one-dimensional labeled array capable of holding any data type (integers, strings, floating point numbers, Python objects, etc.). The axis labels are collectively referred to as the index. The basic method to create a `Series` is to call:
+
+``` python
+s = pd.Series(data, index=index)
+```
+
+Here, **data** can be a Python dict, an ndarray (a multidimensional container of items of the same type and size) or a scalar value. The passed **index** is a list of axis labels. 
+
+#### Using a list:
+```{python}
+s1 = pd.Series([1, 3, 5, 6, 8])
+s1
+```
+
+#### Using a scalar (single value):
+```{python}
+s2 = pd.Series(5.0, index=["a", "b", "c", "d", "e"])
+s2
+```
+
+#### Using a numpy array:
+
+To create a `Series` using ndarray first import numpy library. 
+```{python}
+import numpy as np
+```
+
+NumPy, short for Numerical Python, is a fundamental Python library for scientific computing. It provides support for working with large, multi-dimensional arrays and matrices, as well as a collection of high-level mathematical functions to operate on these arrays.
+
+```{python}
+s3 = pd.Series(np.random.randn(5), index=["a", "b", "c", "d", "e"])
+s3
+```
+
+The np.random module in NumPy is designed for generating pseudo-random numbers, enabling you to extract samples from a wide range of probability distributions. Specifically, the np.random.randn function is used to obtain one or more samples from the "standard normal" distribution, characterized by a mean of 0 and a variance of 1.
+
+If data is an ndarray, index must be the same length as data. If no index is passed, one will be created having values [0, ..., len(data) - 1].
+
+```{python}
+s3 = pd.Series(np.random.randn(5))
+s3
+```
+
+#### Using a dictionary:
+
+`Series` can be instantiated from dicts (recall dictionary from last week) as follows:
+```{python}
+d = {"A": 248, "C": 243, "G": 266, "T": 243}
+s4 = pd.Series(d)
+s4
+```
+
+```{python}
+s4 = pd.Series(dict, index=["A", "B", "C"])
+s4
+```
+
+### DataFrame
+
+`DataFrame` is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table, or a dict of Series objects. The `DataFrame` is generally the most commonly used pandas object. It accepts many different types of input including dictionary of 1-D ndarrays, lists, dictionaries or Series, 2-D ndarray, a Series or even another DataFrame.
+
+Along with the data, you can optionally pass index (row labels) and columns (column labels) arguments. If you pass an index and/or columns, you are guaranteeing the index and/or columns of the resulting DataFrame.
+
+The basic method to create a `DataFrame` is to call:
+
+``` python
+df = pd.DataFrame(data, index=index, columns=columns)
+```
+
+#### Creating a `DataFrame` by using a dictionary of `Series`:
+
+```{python}
+# a dictionary of series
+d = {
+    "Col 1": pd.Series([1.0, 2.0, 3.0], index=["a", "b", "c"]),
+    "Col 2": pd.Series([1.0, 2.0, 3.0, 4.0], index=["a", "b", "c", "d"]),
+}
+df1 = pd.DataFrame(d)
+df1
+```
+
+```{python}
+# table with rows: d, b  and a of the above dictionary
+df2 = pd.DataFrame(d, index=["d", "b", "a"])
+df2
+```
+
+Note: **NaN**, standing for **not a number**, is a numeric data type used to represent any value that is undefined. It is by default not included in computations. 
+
+
+#### Creating a `DataFrame` by using a dictionary of `Series`, lists, ndarrays:
+
+```{python}
+# a dictionary 
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'David'],
+    'Age': pd.Series([25, 30, 35, 40]),
+    'City': ['New York', 'Los Angeles', 'Chicago', 'Houston'],
+    'Salary': np.array([50000, 60000, 75000, 90000])
+}
+
+df3 = pd.DataFrame(data)
+df3
+```
+
+### Indexes and Columns of `DataFrames`
+
+Consider the following DataFrame,
+
+```{python}
+d = {"one": [1.0, 2.0, 3.0, 4.0], "two": [4.0, 3.0, 2.0, 1.0]}
+df3 = pd.DataFrame(d, index=["a", "b", "c", "d"])
+df3
+```
+
+To print and update row names:
+
+```{python}
+print(df3.index)
+df3.index = ["row 1", "row 2", "row 3", "row 4"]
+df3
+```
+
+To print and update column names:
+
+```{python}
+print(df3.columns)
+df3.columns = ["Column 1", "Column 2"]
+df3
+```
+
+To print the data type of each column:
+
+```{python}
+df = pd.DataFrame(
+    {
+        "A": np.random.uniform(low=0, high=1, size=12),
+        "B": pd.date_range(start="20230102", periods=12),
+        "C": pd.Series(range(1, 13), index=["R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8" ,"R9", "R10", "R11", "R12"]),
+        "D": np.random.randint(1, high=100, size=12),
+        "E": pd.Categorical(["red", "green", "blue", "white", "pink", "brown", "black", "purple", "orange", "grey", "violet", "yellow"]),
+        "F": "foo",
+    }, index = ["R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8" ,"R9", "R10", "R11", "R12"]
+)
+print(df.dtypes)
+```
+
+## Reading and Writing to a file
+
+Up to this point, all the data we've been dealing with has been manually entered into our scripts, and the outcomes of our computations have simply been displayed in the terminal. However, in the real world, data will typically be provided by the users of our programs (which could include you!), and we often need to store the results of our analyses in a more permanent location than just printing them to the screen. During this session, we'll explore a few commonly used methods for importing data into our programs by reading/writing files from disk using the pandas library.
+
+It's worth noting that there are numerous other ways to access data, such as querying a database or retrieving data from a network, such as the internet. While we won't cover these methods in this session, Python offers excellent support for interacting with databases and networks, either through its standard library or via external modules.
+
+### Comma-Seperated Values (CSV) or Text file
+
+Read a CSV or text file:
+
+``` python
+pd.read_csv("path_to_file.csv")
+
+# read a text file with values separated by spaces
+pd.read_csv("path_to_file.txt", delimeter=' ')
+```
+
+Write a DataFrame `df` to a CSV or text file:
+
+``` python
+df.to_csv("path_to_file.csv")
+df.to_csv("path_to_file.txt")
+```
+
+### Excel file
+
+Read an excel file:
+
+``` python
+pd.read_excel("path_to_file.xls", sheet_name="Sheet1")
+pd.read_excel("path/to/file/name/file_name.csv")
+```
+
+Write a DataFrame `df` to an excel file:
+
+``` python
+df.to_excel("path_to_file.xlsx", sheet_name="Sheet1")
+```
+
+## Viewing data
+
+Use `DataFrame.head()` to view the top rows of the DataFrame. It returns the top 5 rows of the DataFrame.
+
+```{python}
+df.head()
+```
+
+`DataFrame.tail()` shows the last 5 rows of the DataFrame.
+
+```{python}
+df.tail()
+```
+
+`DataFrame.describe()` shows a quick statistic summary of your data. This include the count (number of rows), mean, standard deviation, minimum value, percentiles (25%, 50%, 75%) or quartiles (1^st^, 2^nd^, 3^rd^) and the maximum value across all columns corresponding to numerical values.   
+
+```{python}
+df.describe()
+```
+
+`DataFrame.t` transpose your data. This results in a DataFrame where the columns of the DataFrame are now rows and the rows are now columns. 
+
+```{python}
+df.T
+```
+
+`DataFrame.sort_index()` sorts by an axis. If no arguments are provided to this function, it restore to default value where `axis = 0` (same as `axis = 'index'`) (rows).`axis = 1` (same as `axis = 'columns'`) argument sort based on columns. This sorts the column labels rather than values in the table. This function accepts another argument called `ascending` which takes a boolean value (True or False). 
+
+```{python}
+df.sort_index(axis=1, ascending=False)
+```
+
+`DataFrame.sort_values()` sorts based on columns. The by argument takes a name or list of column names to sort the DataFrame.  
+
+```{python}
+df.sort_values(by="E")
+```
+
+## Exercise
+
+### Mouse mammary gland dataset
+
+The data for this tutorial comes from a Nature Cell Biology paper, [EGF-mediated induction of Mcl-1 at the switch to lactation is essential for alveolar cell survival](http://www.ncbi.nlm.nih.gov/pubmed/25730472) (Fu et al. 2015). Both the raw data (sequence reads) and processed data (counts) can be downloaded from Gene Expression Omnibus database (GEO) under accession number [GSE60450](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE60450).
+
+This study examines the expression profiles of basal stem-cell enriched cells (B) and committed luminal cells (L) in the mammary gland of virgin, pregnant and lactating mice. Six groups are present, with one for each combination of cell type and mouse status. Each group contains two biological replicates.
+
+The sampleinfo file contains basic information about the samples that we will need for the analysis today.
+
+1.    Read the SampleInfo.txt file.
+
+```{python}
+#| code-fold: true
+import pandas as pd
+
+sample_info = pd.read_csv("data/SampleInfo.txt", delimiter='\t')
+sample_info.describe()
+sample_info
+```
+
+2.    Provide a high-level overview of the content and then display the content of the file. 
+
+```{python}
+#| code-fold: true
+sample_info.describe()
+```
+
+3.    Display samples with luminal cells.
+
+```{python}
+#| code-fold: true
+mask1 = sample_info["CellType"] == "luminal"
+sample_info[mask1]
+```
+
+4.    Display samples of virgin mice.
+
+```{python}
+#| code-fold: true
+mask2 = sample_info["Status"] == "virgin"
+sample_info[mask2]
+```
+
+5.    Display samples of luminal cells of virgin mice.
+
+```{python}
+#| code-fold: true
+sample_info[mask1 & mask2]
+```
+
+6.    Display samples of basal cells of lactating mice.
+
+```{python}
+#| code-fold: true
+sample_info[(sample_info["CellType"] == "basal") & (sample_info["Status"] == "lactate")]
+```
+
+# Part 3: Data manipulation with pandas
+
+## Selecting data
+
+Single column or multiple columns can be accessed as follows:
+
+```{python}
+df["A"]
+```
+
+### Selecting based on labels
+
+`DataFrame.loc()` is used to retrieve a group of rows and/or columns by labels in the DataFrame.
+
+- Selecting a row:
+```{python}
+df.loc["R5"]
+```
+
+- Selecting a range of rows:
+```{python}
+df.loc[["R1", "R2", "R5"]]
+```
+
+- Selecting a column:
+```{python}
+df["E"]
+```
+
+- Selecting a range of columns:
+```{python}
+df[["A","C"]]
+```
+
+- Selecting a row and a column:
+```{python}
+df.loc["R5", "A"]
+```
+
+- Selecting a range of rows and columns:
+```{python}
+df.loc["R3":"R5", "D":"F"]
+```
+
+### Selecting based on integer positions
+
+`DataFrame.iloc()` is used to retrieve a group of rows and/or columns by integer position in the DataFrame. Note: integer position range from 0 to length-1 of rows or columns.
+
+- Selecting a row:
+```{python}
+df.iloc[4]
+```
+
+- Selecting a range of rows:
+```{python}
+df.iloc[[0, 1, 4]]
+```
+
+- Selecting a column:
+```{python}
+df.iloc[:, 4]
+```
+
+- Selecting a range of columns:
+```{python}
+df.iloc[:, [0, 2]]
+```
+
+- Selecting a row and a column:
+```{python}
+df.iloc[4, 0]
+```
+
+- Selecting a range of rows and columns:
+```{python}
+df.iloc[2:5, 3:6]
+```
+
+### Additional selection operations
+
+-   Selecting rows based on a boolean vector:
+
+```{python}
+above_6 = df["C"] > 6 # expression over the dataframe that returns a boolean vector 
+print(above_6)
+df[above_6]
+```
+
+-   Selecting all rows (:) with a range of column labels:
+```{python}
+df.loc[:, ["B", "C", "D"]]
+```
+
+-   Selecting a scalar using `DataFrame.at()` function:
+```{python}
+df.at["R1", "A"]
+```
+
+-   Using `isin()` function for filtering:
+```{python}
+# select the rows with values orange and yellow
+df_sub = df[df["E"].isin(["yellow", "orange"])]
+df_sub
+```
+
+## Setting data
+
+Once a subset of data is filtered using any of the above methods the assignment operator can be used to assign different data. A few examples is shown below.
+
+Consider the following DataFrame for the examples listed below,
+```{python}
+df
+```
+
+-   Update a single cell in the DataFrame:
+```{python}
+df.at["R1", "A"] = 1.0
+df.head()
+```
+
+-   Update multiple cells in the DataFrame:
+```{python}
+df_sub["E"] = ["red", "green"]
+df_sub
+```
+
+The above command shows a warning which says that we are trying to set (or update) values of a copy of a DataFrame rather than the original DataFrame. Recall that `df_sub["E"] = df[df["E"].isin(["yellow", "orange"])]`, that means we are trying to update yellow and orange in the DataFrame to red and green. However, since we are updating a copy of the DataFrame, row R9 and R12 of the DataFrame `df` is not still updated as shown below.
+
+```{python}
+df
+```
+
+If we want to updae the original DataFrame, we should set as follows.  
+
+```{python}
+df.loc[df["E"].isin(["yellow", "orange"]), "E"] = ["red", "green"]
+df
+```
+
+-   Another useful function within this library is the `replace()` function which find a value(s) on a DataFrame and replace it with another value on all columns and rows.  
+```{python}
+df.replace('red', 'blue')
+```
+
+## Statistics on data
+
+The pandas library provides a wide range of statistical functions and methods to compute summary statistics for your data. Below provides some of the key statistical measures you can compute using this library. 
+
+Consider the following dataset which contains 10,000 samples. Each sample contains 13 features (columns). 
+ 
+::: scrolling
+```{python}
+df = pd.read_csv("data/SriLanka_Weather_Dataset.csv")
+df
+```
+:::
+
+You can compute the mean of a Series (a single column of data) or a DataFrame (a table of data) using the `.mean()` method.
+
+-   Calculate the mean value for a certain column: 
+```{python}
+mean_colA = df["temperature"].mean()
+mean_colA
+```
+
+-   Calculate the mean value for each column: 
+```{python}
+col_mean = df.mean(numeric_only = True)
+col_mean
+```
+
+-   Calculate the mean value for each row:
+```{python}
+row_mean = df.mean(axis=1, numeric_only = True)
+row_mean
+```
+
+The median is the middle value of a dataset when the values are arranged in ascending order. It is not affected by extreme values (outliers) and is often used to describe the central tendency of data. In Pandas, you can compute the median using the `.median()` method.
+
+```{python}
+df_median = df.median(numeric_only = True)
+df_median
+```
+
+The standard deviation measures the amount of variation or dispersion in a dataset. A lower standard deviation indicates that data points are close to the mean, while a higher standard deviation indicates greater variability. In Pandas, you can compute the standard deviation using the `.std()` method.
+
+```{python}
+std_dev = df.std(numeric_only = True)
+std_dev
+```
+
+Variance quantifies how much individual data points deviate from the mean. It is the square of the standard deviation. In Pandas, you can compute the variance using the `.var()` method.
+
+```{python}
+variance = df.var(numeric_only = True)
+variance
+```
+
+You can also compute the sum of values using `.sum()` and count the total number of non-missing values using `.count()`.
+
+```{python}
+total_sum = df.sum(numeric_only = True)
+total_sum
+```
+
+```{python}
+counts = df.count()
+counts
+```
+
+```{python}
+sum_A = df["precipitation_hours"].sum()
+sum_A
+```
+
+Here is a quick reference summary table of common useful functions.
+
+```{=html}
+<table>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center"><code>count</code></td>
+      <td>Number of non-NA observations</td>
+    </tr>
+    <tr>
+      <td align="center"><code>sum</code></td>
+      <td>Sum of values</td>
+    </tr>
+    <tr>
+      <td align="center"><code>mean</code></td>
+      <td>Mean of values</td>
+    </tr>
+    <tr>
+      <td align="center"><code>median</code></td>
+      <td>Arithmetic median of values</td>
+    </tr>
+    <tr>
+      <td align="center"><code>min</code></td>
+      <td>Minimum</td>
+    </tr>
+    <tr>
+      <td align="center"><code>max</code></td>
+      <td>Maximum</td>
+    </tr>
+    <tr>
+      <td align="center"><code>mode</code></td>
+      <td>Mode</td>
+    </tr>
+    <tr>
+      <td align="center"><code>abs</code></td>
+      <td>Absolute Value</td>
+    </tr>
+    <tr>
+      <td align="center"><code>prod</code></td>
+      <td>Product of values</td>
+    </tr>
+    <tr>
+      <td align="center"><code>std</code></td>
+      <td>Bessel-corrected sample standard deviation</td>
+    </tr>
+    <tr>
+      <td align="center"><code>var</code></td>
+      <td>Unbiased variance</td>
+    </tr>
+    <tr>
+      <td align="center"><code>sem</code></td>
+      <td>Standard error of the mean</td>
+    </tr>
+    <tr>
+      <td align="center"><code>skew</code></td>
+      <td>Sample skewness (3rd moment)</td>
+    </tr>
+    <tr>
+      <td align="center"><code>kurt</code></td>
+      <td>Sample kurtosis (4th moment)</td>
+    </tr>
+    <tr>
+      <td align="center"><code>quantile</code></td>
+      <td>Sample quantile (value at %)</td>
+    </tr>
+    <tr>
+      <td align="center"><code>cumsum</code></td>
+      <td>Cumulative sum</td>
+    </tr>
+    <tr>
+      <td align="center"><code>cumprod</code></td>
+      <td>Cumulative product</td>
+    </tr>
+    <tr>
+      <td align="center"><code>cummax</code></td>
+      <td>Cumulative maximum</td>
+    </tr>
+    <tr>
+      <td align="center"><code>cummin</code></td>
+      <td>Cumulative minimum</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+Another useful function to count the frequency of values is shown below.
+
+Consider the DataFrame,
+```{python}
+d = {
+  "a": pd.Series(np.random.randint(0, 5, size=10)),
+  "b": pd.Series(np.random.randint(-3, 3, size=10))
+}
+df2 = pd.DataFrame(d)
+df2
+```
+
+-   Frequency of values in all rows:
+```{python}
+df2.value_counts()
+```
+
+-   Frequency of values in a single column:
+```{python}
+df2['a'].value_counts()
+```
+
+Additionally, two powerful functions, `agg` and `transform`, allow you to perform calculations and transformations on DataFrames. These two functions applies user defined function that reduces or broadcasts its results, repectively. However, these functions serve different purposes and have distinct use cases. 
+
+Consider the following DataFrame,
+
+::: scrolling
+```{python}
+df = pd.read_csv("data/SriLanka_Weather_Dataset.csv", nrows = 10)
+df
+```
+:::
+
+The `agg` function is primarily used for aggregating data (within groups when you use `groupby`). It allows you to apply one or more aggregation functions to each group and obtain a summarized result for each group.
+
+```{python}
+temp_variation = df.agg(['min','max']) 
+temp_variation
+```
+
+The `transform` function is used for element-wise transformations. It applies a given function to each element in a DataFrame or Series and returns a new Series with the same index as the original DataFrame. This function is commonly used when you want to broadcast a computed value back to the original DataFrame, maintaining the original shape of the data.
+
+```{python}
+temp_fahrenheit = df["temperature"].transform(lambda x: x * 9.0/5.0 + 32)
+temp_fahrenheit
+```
+
+A lambda function in Python is a small, anonymous, and inline function. It is also known as a lambda expression or lambda notation. Lambda functions are a way to create small, one-time-use functions without needing to define them using the def keyword. Lambda functions are typically used for short, simple operations where defining a full function using def would be overly verbose.
+
+``` python
+lambda arguments: expression
+```
+
+Here's a simple example to illustrate the use of lambda functions:
+
+```{python}
+# Regular function to calculate the square of a number
+def square(x):
+    return x ** 2
+
+# Equivalent lambda function to calculate the square of a number
+square_lambda = lambda x: x ** 2
+```
+
+
+## Missing data
+
+Handling missing values is an essential part of data preprocessing and analysis in Pandas. Missing values can arise due to various reasons, such as data collection errors, incomplete data or sensor failures. 
+
+Let's create a DataFrame with missing values.
+
+Consider the following DataFrame:
+```{python}
+df = pd.DataFrame(np.random.randn(6, 4), index=['a', 'b', 'c', 'd', 'e', 'f'], columns=list("ABCD"))
+
+dates = pd.date_range("20130101", periods=6)
+df["E"] = dates
+
+s1 = pd.Series([1, 2, 3, 4, 5, 6], index=['a', 'b', 'c', 'd', 'e', 'f'])
+df["F"] = s1
+df
+
+```
+
+Re-indexing allows you to change/add/delete the index on a specified axis. This returns a copy of the data which includes several missing values. 
+```{python}
+df1 = df.reindex(index=['a', 'b', 'c', 'h', 'd', 'e', 'f', 'g'], columns=list(df.columns) + ["G", "H"])
+df1.loc['c' : 'f', "G"] = 1
+df1
+```
+
+### Detecting missing values
+
+Pandas provides several methods for detecting and dealing with missing values.
+
+`isna()` and `isnull()`: These methods return a DataFrame of the same shape as the input, with Boolean values indicating whether each element is missing (`True`) or not (`False`).
+
+```{python}
+pd.isna(df1)
+```
+
+```{python}
+pd.isnull(df1)
+```
+
+`notna()` and `notnull()`: These methods are the opposite of `isna() `and `isnull()`. They return `True` for non-missing values and `False` for missing values.
+
+```{python}
+pd.notna(df1)
+```
+
+```{python}
+pd.notnull(df1)
+```
+
+Check if a column does not contain missing values:
+```{python}
+df1["G"].notna()
+```
+
+`info()`: The `info()` method provides a summary of the DataFrame, including the count of non-null values in each column.
+```{python}
+df1.info()
+```
+
+### Handling missing values
+
+Once you've detected missing values, you can choose from several strategies to handle them.
+
+Consider the following DataFrame,
+```{python}
+df1
+```
+
+#### Dropping missing values
+
+Drop rows that have any missing data:
+
+Consider the following DataFrame for this example,
+```{python}
+df_without_colH = df1.loc[:, "A":"G"]   # dataframe excluding column H
+df_without_colH
+```
+
+```{python}
+df2 = df_without_colH.dropna(how="any")
+df2
+```
+
+Drop rows that have all missing data:
+```{python}
+df2 = df1.dropna(how="all")
+df2
+```
+
+Drop columns that have any missing data (shown as NaN):
+Consider the following DataFrame for this example,
+```{python}
+exclude_list = df1.index.isin(['h', 'g'])
+df_without_rowhg = df1[~exclude_list]             # dataframe excluding rows h and g
+```
+
+```{python}
+df2 = df_without_rowhg.dropna(how="any", axis=1)
+df2
+```
+
+Drop columns that have all missing data:
+```{python}
+df2 = df1.dropna(how="all", axis=1)
+df2
+```
+
+#### Filling missing values
+
+You can fill missing values with a specific value or a calculated value using the `fillna()` method.
+
+Consider the following DataFrame,
+```{python}
+df1
+```
+
+##### Replace missing values with a scalar value
+
+Fill missing values with 0:
+```{python}
+df2 = df1.fillna(0)
+df2
+```
+
+Fill missing values with a scalar, but limit the number of column fills to 2:
+```{python}
+df2 = df1.fillna(12, axis='columns', limit=2)
+df2
+```
+
+##### Fill gaps forward or backward
+
+Propogate missing values forward:
+```{python}
+df2 = df1.ffill() # ffill ≡ pad ≡ fillna(method='ffill')
+df2
+```
+
+Propogate missing values backward along rows:
+```{python}
+df2 = df1.bfill() # bfill ≡ backfill ≡ fillna(method='bfill')
+df2
+```
+
+##### Fill with a Pandas object
+
+Fill the missing values of a column with the mean of the column:
+```{python}
+df2 = df1.fillna(df1.mean())
+df2
+```
+
+Fill only a subset of the columns using the corresponding median
+```{python}
+df2 = df1.fillna(df1.median()["F":"G"])
+df2
+```
+
+##### Interpolation
+
+The interpolate method is used to fill in missing values with estimated values based on the surrounding data points. It's particularly useful for time series data or datasets where values are expected to follow a pattern.
+
+The interpolate method employs various interpolation techniques to estimate missing values, including linear interpolation, polynomial interpolation, and more. The specific interpolation method used depends on the kind of data and the desired behavior.
+
+-   *Linear Interpolation*: Linear interpolation is the default method used by interpolate. It estimates missing values by drawing a straight line between two adjacent known data points and filling in the missing value with a value along that line. This method is suitable for data that appears to change linearly over time or between data points.
+-   *Polynomial Interpolation*: Polynomial interpolation uses higher-degree polynomial functions to estimate missing values. This method can capture more complex relationships between data points but may be susceptible to overfitting if not used carefully.
+-   *Time-Based Interpolation*: When working with time series data, you can use the method parameter to specify time-based interpolation methods such as 'time', 'index', or 'values'. These methods consider the time or index values to estimate missing values.
+
+Here's an example using linear interpolation:
+```{python}
+df2 = df1.interpolate()
+df2
+```
+
+## Grouping data
+
+The `groupby` function is a powerful feature within pandas that allows you to group and aggregate data in a DataFrame based on one or more columns. This can be especially useful when you want to perform summary statistics, calculations, or transformations on subsets of your data based on certain criteria. It involves one or more of the following steps:
+
+-   **Slitting:** The first step in a groupby operation is to split the DataFrame into groups based on the values in one or more columns. You specify the column(s) by which you want to group your data. This column is often referred to as the "key" or "grouping column". Each unique value in the grouping column(s) forms a group, and the rows in the DataFrame are distributed among these groups.
+-   **Applying a Function:** After splitting the data into groups, you can apply various aggregation or transformation functions to each group. These functions are typically applied to one or more columns in each group. Common aggregation functions include sum, mean, count, min, max, and more. You can also apply custom functions or perform complex operations on the grouped data.
+    -   **Aggregation:** compute a summary statistic (or statistics) for each group. Examples: compute group sums or means, compute group size. 
+    -   **Transformation:** perform some group-specific computations and return a like-indexed object. Examples: standardize data (zscore) within a group, filling NAs within groups with a value derived from each group.
+    -   **Filtration:** discard some groups, according to a group-wise computation that evaluates to True or False. Examples: discard data that belong to groups with only a few members, filter out data based on the group sum or mean.
+-   **Combining Results:** Once the specified function(s) are applied to each group, the results are combined into a new DataFrame or data structure. This final result will often have a hierarchical structure, with the grouping columns as index levels.
+
+Consider the following DataFrame for the examples listed below.
+
+::: scrolling
+```{python}
+df = pd.read_csv("data/Telco-Customer-Churn.csv", nrows = 50)
+df
+```
+:::
+
+### Aggregation
+
+-   Calculate the total number of customers, categorized by gender (male and female).
+
+```{python}
+df.groupby("gender").count()
+```
+
+-   Determine the average monthly charge for each type of contract.
+
+```{python}
+grouped_contract = df.groupby("Contract")
+grouped_contract["MonthlyCharges"].mean()
+```
+
+-   Calculate the total, mean, and standard deviation of total charges for each combination of internet service and payment method.
+```{python}
+grouped = df.groupby(["InternetService", "PaymentMethod"])
+grouped["TotalCharges"].agg(['sum','mean','std'])
+```
+
+### Transformation
+
+- Compute the difference between adjacent values of monthly charges within each group of internet service types.
+
+::: scrolling
+```{python}
+grouped_is = df.groupby("InternetService")
+grouped_is["MonthlyCharges"].diff()
+```
+:::
+
+
+-   Compute the cumulative sum of total charges within each contract group. 
+
+::: scrolling
+```{python}
+grouped_contract = df.groupby("Contract")
+grouped_contract["TotalCharges"].transform("cumsum")
+```
+:::
+
+### Filteration
+
+-   Select the 3rd row of each group categorized based on payment method.
+```{python}
+df.groupby("PaymentMethod").nth(3)
+```
+
+-   Print the top rows of each group categorized based on internet service and payment method.
+
+::: scrolling
+```{python}
+df.groupby(["InternetService", "PaymentMethod"]).head()
+```
+:::
+
+## Joining Data
+
+Pandas provides two primary methods for combining DataFrames: concat and merge. These methods allow you to combine DataFrames along rows and columns, and they support various types of joins, including inner, left, right, and outer joins. Here's an explanation of both methods and the types of joins they support:
+
+### `concat`
+
+The `concat` method is used for concatenating (stacking) DataFrames along a particular axis, which can be either rows or columns. It's particularly useful when you want to combine DataFrames with the same structure along a common axis. It does not require a common key to merge DataFrames, as it is primarily for stacking them.
+
+Consider the following three DataFrames,
+```{python}
+df1 = pd.DataFrame({'A': ['A0', 'A1', 'A2'],
+                    'B': ['B0', 'B1', 'B2']})
+                    
+df2 = pd.DataFrame({'A': ['A3', 'A4', 'A5'],
+                    'B': ['B3', 'B4', 'B5']})
+
+df3 = pd.DataFrame({'C': ['C0', 'C1', 'C2'],
+                    'D': ['D0', 'D1', 'D2']})
+```
+
+
+-   Concatenate along rows (vertically)
+
+:::: {.columns}
+
+::: {.column width="45%"}
+```{python}
+df1
+```
+
+:::
+
+::: {.column width="10%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="45%"}
+```{python}
+df2
+```
+
+:::
+
+::::
+
+```{python}
+pd.concat([df1, df2], axis=0)
+```
+
+-   Concatenating along columns (horizontally)
+
+:::: {.columns}
+
+::: {.column width="45%"}
+```{python}
+df1
+```
+
+:::
+
+::: {.column width="10%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="45%"}
+```{python}
+df3
+```
+
+:::
+
+::::
+
+```{python}
+pd.concat([df1, df3], axis=1)
+```
+
+### `merge`
+
+The `merge` method is used for merging DataFrames based on common columns or indexes, similar to SQL joins. It's especially useful when you have different DataFrames with related data and want to combine them based on a shared key.
+
+Consider the following two DataFrames,
+```{python}
+left = pd.DataFrame({
+         "key1": ["K0", "K0", "K1", "K2"],
+         "key2": ["K0", "K1", "K0", "K1"],
+         "A": ["A0", "A1", "A2", "A3"],
+         "B": ["B0", "B1", "B2", "B3"],
+     })
+right = pd.DataFrame({
+         "key1": ["K0", "K1", "K1", "K2"],
+         "key2": ["K0", "K0", "K0", "K0"],
+         "C": ["C0", "C1", "C2", "C3"],
+         "D": ["D0", "D1", "D2", "D3"],
+     })
+```
+
+#### Inner join
+
+An inner join returns only the rows with matching values in the specified columns (the common key). It combines data from two or more tables or DataFrames based on the intersection of keys, excluding rows that do not have corresponding matches in both tables.
+
+:::: {.columns}
+
+::: {.column width="45%"}
+```{python}
+left
+```
+
+:::
+
+::: {.column width="10%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="45%"}
+```{python}
+right
+```
+
+:::
+
+::::
+
+```{python}
+pd.merge(left, right, how="inner", on=["key1", "key2"])
+```
+
+#### Outer join
+
+An outer join returns all rows from both tables, including rows with matching keys and rows with non-matching keys. When there's no match for a particular row in one of the tables, the missing values are filled with NULL (or NaN in pandas), indicating no corresponding data.
+
+:::: {.columns}
+
+::: {.column width="45%"}
+```{python}
+left
+```
+
+:::
+
+::: {.column width="10%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="45%"}
+```{python}
+right
+```
+
+:::
+
+::::
+
+```{python}
+pd.merge(left, right, how="outer", on=["key1", "key2"])
+```
+
+#### Left join
+
+A left join returns all rows from the left table (the first table specified) and matching rows from the right table (the second table specified). Non-matching rows in the right table have NULL (or NaN) values in the result.
+
+:::: {.columns}
+
+::: {.column width="45%"}
+```{python}
+left
+```
+
+:::
+
+::: {.column width="10%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="45%"}
+```{python}
+right
+```
+
+:::
+
+::::
+
+```{python}
+pd.merge(left, right, how="left", on=["key1", "key2"])
+```
+
+#### Right join
+
+A right join is similar to a left join but returns all rows from the right table and matching rows from the left table. Non-matching rows in the left table have NULL (or NaN) values in the result.
+
+:::: {.columns}
+
+::: {.column width="45%"}
+```{python}
+left
+```
+
+:::
+
+::: {.column width="10%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="45%"}
+```{python}
+right
+```
+
+:::
+
+::::
+
+```{python}
+pd.merge(left, right, how="right", on=["key1", "key2"])
+```
+
+#### Cross join
+
+A cross join is used to create all possible combinations of rows from multiple tables or DataFrames. It can be useful in specific situations, such as when you want to generate all possible pairs or combinations of data.
+
+:::: {.columns}
+
+::: {.column width="45%"}
+```{python}
+left
+```
+
+:::
+
+::: {.column width="10%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="45%"}
+```{python}
+right
+```
+
+:::
+
+::::
+
+```{python}
+pd.merge(left, right, how="cross")
+```
+
+
+## Exercise 1
+
+### Mouse mammary gland dataset
+
+#### Reading in the count data
+
+Let's use the counts file for our preliminary analysis. This data has already been aligned to the mouse genome. The command line tool featureCounts (Liao, Smyth, and Shi 2014) was used to count reads mapped to mouse genes from Refseq annotation (see the [paper](http://www.ncbi.nlm.nih.gov/pubmed/25730472) for details).
+
+Let’s take a look at the data.
+
+1.    Read the GSE60450_Lactation-GenewiseCounts.txt file.
+
+```{python}
+#| code-fold: true
+seq_data = pd.read_csv("data/GSE60450_Lactation-GenewiseCounts.txt", delimiter='\t')
+seq_data
+```
+
+2.    Display the dimension and column names of the dataframe.
+
+```{python}
+#| code-fold: true
+seq_data.shape
+```
+
+```{python}
+#| code-fold: true
+seq_data.columns
+```
+
+#### Format the data
+
+1.    Create a new data object, `count_data`, that contains only the counts for the 12 samples and use `EntrezGeneID` as row names.
+
+```{python}
+#| code-fold: true
+count_data = seq_data.iloc[:, 2:]
+count_data.index = seq_data["EntrezGeneID"]
+count_data
+```
+
+2.    Update lengthy column names to the corresponding sample names (refer Sample Information).
+
+```{python}
+#| code-fold: true
+count_data.columns = count_data.columns.str[:7]
+count_data
+```
+
+#### Filtering to remove lowly expressed genes
+
+Genes with very low counts across all libraries provide little evidence for differential expression. They also add to the multiple testing burden when estimating false discovery rates, reducing power to detect differentially expressed genes. These genes should be filtered out prior to further analysis.
+
+There are a few ways to filter out lowly expressed genes. When there are biological replicates in each group, in this case we have a sample size of 2 in each group, we favour filtering on a minimum counts per million (CPM) threshold present in at least 2 samples. Two represents the smallest sample size for each group in our experiment. In this dataset, we choose to retain genes if they are expressed at a counts-per-million (CPM) above 0.5 in at least two samples.
+
+$\mathbf{CPM} = \frac{\text{count}}{\text{total count}} * 1,000,000$
+
+Note that by converting to CPMs we are normalising for different sequencing depths for each sample.
+
+1.    Normalize counts using CPM normalization.
+
+```{python}
+#| code-fold: true
+import numpy as np
+norm_count_data = count_data/count_data.sum()*1000000
+norm_count_data
+```
+
+2.    Display samples with CPM > 0.5.
+
+```{python}
+#| code-fold: true
+tempDF = norm_count_data > 0.5
+tempDF
+```
+
+A CPM of 0.5 is used as it corresponds to a count of 10-15 for the library sizes in this data set. If the count is any smaller, it is considered to be very low, indicating that the associated gene is not expressed in that sample. A requirement for expression in two or more libraries is used as each group contains two replicates. This ensures that a gene will be retained if it is only expressed in one group. Smaller CPM thresholds are usually appropriate for larger libraries. As a general rule, a good threshold can be chosen by identifying the CPM that corresponds to a count of 10, which in this case is about 0.5. You should filter with CPMs rather than filtering on the counts directly, as the latter does not account for differences in library sizes between samples.
+
+3.    Verify that CPM of 0.5 corresponds to a count of 10-15.
+
+```{python}
+#| code-fold: true
+count_data[norm_count_data > 0.5].min().min()
+```
+
+4.    Create a new dataframe with genes that are expressed at a CPM above 0.5 in at least two samples.
+
+```{python}
+#| code-fold: true
+tempDF.value_counts()
+```
+
+```{python}
+#| code-fold: true
+norm_count_data[(tempDF == True).sum(axis=1) >= 2]
+```
+
+
+## Exercise 2
+
+**Create a table 1 summary using the melanoma dataset.**
+
+```{python}
+#| code-fold: true
+import pandas as pd
+melanoma = pd.read_csv('data/melanoma_dataset.txt', delimiter=' ')
+melanoma
+```
+
+
+```{python}
+#| code-fold: true
+df1 = melanoma.groupby(["status", "sex"])["sex"].agg(["count"])
+df1["percentage"] = df1.groupby(level=0).transform(lambda x:100 * x / x.sum())
+df1 = df1.reset_index() 
+df1
+```
+
+```{python}
+#| code-fold: true
+df2 = melanoma.groupby(["status", "ulcer"])["ulcer"].agg(["count"])
+df2["percentage"] = df2.groupby(level=0).transform(lambda x:100 * x / x.sum())
+df2 = df2.reset_index() 
+df2
+```
+
+```{python}
+#| code-fold: true
+df3 = melanoma.groupby("status")["age"].agg(["mean","std","median", "min", "max"])
+df3 = df3.reset_index() 
+df3
+```
+
+```{python}
+#| code-fold: true
+df4 = melanoma.groupby("status")["thickness"].agg(["mean","std","median", "min", "max"])
+df4 = df4.reset_index() 
+df4
+```
+
+```{python}
+#| code-fold: true
+def formatCell_catego(inp_1, inp_2):
+    return str(inp_1) + " (" + f'{inp_2:.2f}%' + ")"
+
+def formatCell_nume(inp_1, inp_2):
+    return f'{inp_1:.2f}' + " (" + f'{inp_2:.2f}' + ")"
+
+def formatCell_nume2(inp_1, inp_2, inp_3):
+    return f'{inp_1:.2f}' + " (" + f'{inp_2:.2f}' + ", " + f'{inp_3:.2f}' + ")"
+
+
+dict_data = {
+    '': [
+        'Sex (0)', 'Sex (1)', 'Ulcer (0)', 'Ulcer (1)', 
+        'Age Mean (SD)', 'Age Median (Min, Max)', 'Thickness Mean (SD)', 'Thickness Median (Min, Max)'
+    ],
+    'Melanoma Death': [ 
+        formatCell_catego(
+            df1[(df1['sex'] == 0) & (df1['status'] == 1)]['count'].values[0],
+            df1[(df1['sex'] == 0) & (df1['status'] == 1)]['percentage'].values[0]),
+        formatCell_catego(
+            df1[(df1['sex'] == 1) & (df1['status'] == 1)]['count'].values[0],
+            df1[(df1['sex'] == 1) & (df1['status'] == 1)]['percentage'].values[0]),
+        formatCell_catego(
+            df2[(df2['ulcer'] == 0) & (df2['status'] == 1)]['count'].values[0],
+            df2[(df2['ulcer'] == 0) & (df2['status'] == 1)]['percentage'].values[0]),
+        formatCell_catego(
+            df2[(df2['ulcer'] == 1) & (df2['status'] == 1)]['count'].values[0],
+            df2[(df2['ulcer'] == 1) & (df2['status'] == 1)]['percentage'].values[0]),
+        formatCell_nume(
+            df3[df3['status'] == 1]['mean'].values[0],
+            df3[df3['status'] == 1]['std'].values[0]),
+        formatCell_nume2(
+            df3[df3['status'] == 1]['median'].values[0],
+            df3[df3['status'] == 1]['min'].values[0],
+            df3[df3['status'] == 1]['max'].values[0]),
+        formatCell_nume(
+            df4[df4['status'] == 1]['mean'].values[0],
+            df4[df4['status'] == 1]['std'].values[0]),
+        formatCell_nume2(
+            df4[df4['status'] == 1]['median'].values[0],
+            df4[df4['status'] == 1]['min'].values[0],
+            df4[df4['status'] == 1]['max'].values[0])
+    ],
+    'Alive': [ 
+        formatCell_catego(
+            df1[(df1['sex'] == 0) & (df1['status'] == 2)]['count'].values[0],
+            df1[(df1['sex'] == 0) & (df1['status'] == 2)]['percentage'].values[0]),
+        formatCell_catego(
+            df1[(df1['sex'] == 1) & (df1['status'] == 2)]['count'].values[0],
+            df1[(df1['sex'] == 1) & (df1['status'] == 2)]['percentage'].values[0]),
+        formatCell_catego(
+            df2[(df2['ulcer'] == 0) & (df2['status'] == 2)]['count'].values[0],
+            df2[(df2['ulcer'] == 0) & (df2['status'] == 2)]['percentage'].values[0]),
+        formatCell_catego(
+            df2[(df2['ulcer'] == 1) & (df2['status'] == 2)]['count'].values[0],
+            df2[(df2['ulcer'] == 1) & (df2['status'] == 2)]['percentage'].values[0]),
+        formatCell_nume(
+            df3[df3['status'] == 2]['mean'].values[0],
+            df3[df3['status'] == 2]['std'].values[0]),
+        formatCell_nume2(
+            df3[df3['status'] == 2]['median'].values[0],
+            df3[df3['status'] == 2]['min'].values[0],
+            df3[df3['status'] == 2]['max'].values[0]),
+        formatCell_nume(
+            df4[df4['status'] == 2]['mean'].values[0],
+            df4[df4['status'] == 2]['std'].values[0]),
+        formatCell_nume2(
+            df4[df4['status'] == 2]['median'].values[0],
+            df4[df4['status'] == 2]['min'].values[0],
+            df4[df4['status'] == 2]['max'].values[0])
+    ],
+    'Non-Melanoma Death': [ 
+        formatCell_catego(
+            df1[(df1['sex'] == 0) & (df1['status'] == 3)]['count'].values[0],
+            df1[(df1['sex'] == 0) & (df1['status'] == 3)]['percentage'].values[0]),
+        formatCell_catego(
+            df1[(df1['sex'] == 1) & (df1['status'] == 3)]['count'].values[0],
+            df1[(df1['sex'] == 1) & (df1['status'] == 3)]['percentage'].values[0]),
+        formatCell_catego(
+            df2[(df2['ulcer'] == 0) & (df2['status'] == 3)]['count'].values[0],
+            df2[(df2['ulcer'] == 0) & (df2['status'] == 3)]['percentage'].values[0]),
+        formatCell_catego(
+            df2[(df2['ulcer'] == 1) & (df2['status'] == 3)]['count'].values[0],
+            df2[(df2['ulcer'] == 1) & (df2['status'] == 3)]['percentage'].values[0]),
+        formatCell_nume(
+            df3[df3['status'] == 3]['mean'].values[0],
+            df3[df3['status'] == 3]['std'].values[0]),
+        formatCell_nume2(
+            df3[df3['status'] == 3]['median'].values[0],
+            df3[df3['status'] == 3]['min'].values[0],
+            df3[df3['status'] == 3]['max'].values[0]),
+        formatCell_nume(
+            df4[df4['status'] == 3]['mean'].values[0],
+            df4[df4['status'] == 3]['std'].values[0]),
+        formatCell_nume2(
+            df4[df4['status'] == 3]['median'].values[0],
+            df4[df4['status'] == 3]['min'].values[0],
+            df4[df4['status'] == 3]['max'].values[0])
+    ]
+}
+
+df_stat = pd.DataFrame(dict_data)
+df_stat
+```
+
