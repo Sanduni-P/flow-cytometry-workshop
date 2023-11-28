@@ -1,5 +1,5 @@
 ---
-title: "Basics of working with FCS files"
+title: "Basics on working with FCS files"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Basics of working with FCS files}

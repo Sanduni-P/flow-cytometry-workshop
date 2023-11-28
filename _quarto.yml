@@ -9,7 +9,7 @@ website:
         text: Home
       - text: Workshop
         menu:
-        - text: "Basics of working with FCS files"
+        - text: "Basics on working with FCS files"
           href: vignettes/1_Import_fcs.html
         - text: "Spillover, compensation, and Transformations"
           href: vignettes/2_Spillover_transformation.html
