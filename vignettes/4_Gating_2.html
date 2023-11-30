@@ -4602,19 +4602,15 @@ overflow-y: auto;
 <h1>Background</h1>
 <p>In this section we describe the methods available to access and extract the gated data within a <code>GatingSet</code>. It is important to note here that the <strong>gates</strong> essentially act as filter for the data and may be utilize to subset the original data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flowWorkspace)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package &#39;flowWorkspace&#39; was built under R version 4.3.2</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flowCore)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flowWorkspace)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flowCore)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="gating-paths-get-and-set" class="level2">
 <h2 class="anchored" data-anchor-id="gating-paths-get-and-set">Gating paths: get and set</h2>
-<p>Let’s first look at the gates that are attached to the <code>GatingSet</code>. For this example, we will make use of a <code>GatingSet</code> that we have previously prepared.</p>
+<p>Let’s first look at the gates that are attached to the <code>GatingSet</code>. For this example, we will make use of a <code>GatingSet</code> that we have previously prepared (The script used to prepare this <code>GatingSet</code> is available <a href="https://github.com/Sanduni-P/flow-cytometry-workshop/blob/main/vignettes/make_transformed_gs_func.R">here</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;make_transformed_gs_func.R&quot;</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>gs <span class="ot">&lt;-</span> <span class="fu">make_transformed_gs</span>(<span class="at">add_gates =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>gs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gs <span class="ot">&lt;-</span> <span class="fu">load_gs</span>(<span class="at">path =</span> <span class="st">&quot;data/gating-set/&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>gs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A GatingSet with 4 samples</code></pre>
 </div>
@@ -4627,8 +4623,8 @@ overflow-y: auto;
 </div>
 <p>To extract the full gating path we can use <code>gs_get_pop_paths</code> method.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get all paths</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gs_get_pop_paths</span>(gs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get all paths</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gs_get_pop_paths</span>(gs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] &quot;root&quot;                                                                                       
  [2] &quot;/singlet&quot;                                                                                   
@@ -4649,10 +4645,10 @@ overflow-y: auto;
 </div>
 <p>When there are a lot of gates, this list can become very long as each node is shown as a distinct path. Suppose you would like to only view the leaf nodes. For this, we use <code>gs_get_leaf_nodes</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get leaf nodes</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gs_get_leaf_nodes</span>(</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  gs, </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ancestor =</span> <span class="st">&quot;root&quot;</span>) <span class="co"># can select leafs of a specific node</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get leaf nodes</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gs_get_leaf_nodes</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  gs, </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ancestor =</span> <span class="st">&quot;root&quot;</span>) <span class="co"># can select leafs of a specific node</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;/singlet/live/lymphocytes/CD3+ T cells/NKT cells&quot;                                           
 [2] &quot;/singlet/live/lymphocytes/CD3+ T cells/non-NKT Cells/conv_Tcells/MAIT Cells&quot;                
@@ -4665,11 +4661,11 @@ overflow-y: auto;
 </div>
 <p>To change the name of a node, for instance, <strong>CD4-CD8a-</strong> above is not super clear and we want to update this to <strong>Double Negative CD3+ T cells</strong> for readability, we can use <code>gs_pop_set_name</code> method.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rename node</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gs_pop_set_name</span>(</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  gs,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;CD4-CD8a-&quot;</span>,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Double Negative CD3+ T cells&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rename node</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gs_pop_set_name</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  gs,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;CD4-CD8a-&quot;</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Double Negative CD3+ T cells&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$`4000_TNK-CR1`
 NULL
@@ -4683,8 +4679,8 @@ NULL
 $`4003_TNK-CR1`
 NULL</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gs_get_leaf_nodes</span>(gs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gs_get_leaf_nodes</span>(gs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;/singlet/live/lymphocytes/CD3+ T cells/NKT cells&quot;                                                              
 [2] &quot;/singlet/live/lymphocytes/CD3+ T cells/non-NKT Cells/conv_Tcells/MAIT Cells&quot;                                   
@@ -4708,11 +4704,11 @@ NULL</code></pre>
 <p>Often, users may also want to extract the embedded expression data for a specified gated population for some downstream application. The <code>cytoverse</code> makes it super easy to extract this data. Moreover, the extracted data is preserved as a <code>cytoframe</code> or a <code>cytoset</code> for ease of use.</p>
 <p>The 2 main methods are: 1. <code>gs_pop_get_data</code> 2. <code>gh_pop_get_data</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract data</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>extracted <span class="ot">&lt;-</span> <span class="fu">gs_pop_get_data</span>(gs,</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> <span class="st">&quot;live&quot;</span>,</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">inverse.transform =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>extracted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>extracted <span class="ot">&lt;-</span> <span class="fu">gs_pop_get_data</span>(gs,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> <span class="st">&quot;live&quot;</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">inverse.transform =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>extracted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A cytoset with 4 samples.
 
@@ -4743,12 +4739,12 @@ Notice that altering the extracted data leads to altered data within the <code>G
 <details>
 <p>This is only for example.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>another_CD3_gate <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>,<span class="cn">Inf</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">1</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(another_CD3_gate) <span class="ot">&lt;-</span> <span class="st">&quot;FSC-A&quot;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>another_CD3_gate <span class="ot">&lt;-</span> <span class="fu">rectangleGate</span>(<span class="at">.gate =</span> another_CD3_gate, <span class="at">filterId =</span> <span class="st">&quot;CD3+ T cells&quot;</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gs_pop_add</span>(gs, <span class="at">parent =</span> <span class="st">&quot;non-NKT Cells&quot;</span>, <span class="at">gate =</span> another_CD3_gate)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">recompute</span>(gs)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>another_CD3_gate <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>,<span class="cn">Inf</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">1</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(another_CD3_gate) <span class="ot">&lt;-</span> <span class="st">&quot;FSC-A&quot;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>another_CD3_gate <span class="ot">&lt;-</span> <span class="fu">rectangleGate</span>(<span class="at">.gate =</span> another_CD3_gate, <span class="at">filterId =</span> <span class="st">&quot;CD3+ T cells&quot;</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gs_pop_add</span>(gs, <span class="at">parent =</span> <span class="st">&quot;non-NKT Cells&quot;</span>, <span class="at">gate =</span> another_CD3_gate)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">recompute</span>(gs)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </details>
 <p>Now try to extract the <code>CD3+ T cells</code> population using either <code>gs_</code> or <code>gh_</code> methods as above.</p>
