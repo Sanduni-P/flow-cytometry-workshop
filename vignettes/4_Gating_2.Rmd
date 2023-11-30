@@ -12,7 +12,7 @@ In this section we describe the methods available to access and extract the gate
 It is important to note here that the **gates** essentially act as filter for the data and may be utilize to subset the original data. 
 
 
-```{r load_libraries, eval=TRUE, echo=TRUE, message=FALSE}
+```{r load_libraries, eval=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
 library(flowWorkspace)
 library(flowCore)
 ```
@@ -20,11 +20,10 @@ library(flowCore)
 
 ## Gating paths: get and set
 
-Let's first look at the gates that are attached to the `GatingSet`. For this example, we will make use of a `GatingSet` that we have previously prepared. 
+Let's first look at the gates that are attached to the `GatingSet`. For this example, we will make use of a `GatingSet` that we have previously prepared (The script used to prepare this `GatingSet` is available [here](https://github.com/Sanduni-P/flow-cytometry-workshop/blob/main/vignettes/make_transformed_gs_func.R). 
 
 ```{r load_gs, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
-source("make_transformed_gs_func.R")
-gs <- make_transformed_gs(add_gates = TRUE)
+gs <- load_gs(path = "data/gating-set/")
 gs
 ```
 

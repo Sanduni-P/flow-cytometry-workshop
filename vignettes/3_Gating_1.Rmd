@@ -16,23 +16,22 @@ In the previous sections, we have seen (and worked with) `cytoframe`, and `cytos
 
 In this section we work with `GatingSet` and `GatingHierarchy`. These objects, like the name suggests, store information regarding various gates and filters that we will generate. Importantly, we can save the `GatingSet` which will completely package the analysis as well as the **.fcs** files in an opensource format that can be shared, allowing reproducibility.
 
-In **part 1** of this section, we will go over variety of native methods that exist in the `cytoverse` which analysts can utilize to gate their cells of interest.
-
-In **part 2** of this sections, we will go over methods to extract gated data for cells/populations of interest.
-
-In **part 3 (optional)**, we will demonstrate how analysts can automate this process by utilizing a `gatingTemplate` (a csv file that can be used to define and build the hierarchy).
+The Gating sections of this workshop is designed as follows:
+-   In **part 1** of this section, we will go over variety of native methods that exist in the `cytoverse` which analysts can utilize to gate their cells of interest.
+-   In **part 2** of this sections, we will go over methods to extract gated data for cells/populations of interest.
+-   In **part 3 (optional)**, we will demonstrate how analysts can automate this process by utilizing a `gatingTemplate` (a csv file that can be used to define and build the hierarchy).
 
 ## Creating a `GatingSet`
 
 Required libraries
 
-```{r load_library, message=FALSE, echo = TRUE, eval=TRUE, message=FALSE}
+```{r load_library, message=FALSE, echo = TRUE, eval=TRUE, message=FALSE, warning=FALSE}
 library(flowWorkspace)
 library(ggcyto)
 library(openCyto)
 ```
 
-To create a `GatingSet`, first load in a `cytoset`. Here, we are making use of the `cytoset` that we have created previously. 
+To create a `GatingSet`, first load in a `cytoset`. 
 
 ```{r intro_gatingset, eval = T, echo=TRUE, message = FALSE}
 # load cytoset
@@ -43,7 +42,9 @@ metadata <- data.frame(name = sampleNames(cs),
                        Treatment = sample(x = c("Treated","Control"), 
                                           size = length(cs), 
                                           prob = c(0.5,0.5),replace = TRUE), 
-                       panel = ifelse(grepl(pattern = "TNK",x = sampleNames(cs)),"T Cell Panel","Myeloid Panel"), 
+                       panel = ifelse(
+                         grepl(pattern = "TNK",x = sampleNames(cs)),
+                         "T Cell Panel","Myeloid Panel"), 
                        row.names = sampleNames(cs))
   
 pData(cs) <- metadata
@@ -61,7 +62,7 @@ We have now created a `GatingSet` called **gs**.
 
 The `GatingSet` needs to be **compensated** and **transformed** before we start attaching gates.
 
-*Note*: The approach to **compensate** and **transform** a `GatingSet` is similar to that of `cytoframe` and `cytoset`; As such, we ask you to run the code below, up to line **125**. 
+*Note*: The approach to **compensate** and **transform** a `GatingSet` is similar to that of `cytoframe` and `cytoset`.
 
 We can directly compensate the `GatingSet` object.
 
@@ -102,7 +103,7 @@ gs <- flowWorkspace::transform(gs, my_trans_list) # transforms underlying data
 ### Exercise
 
 1. How would you be able to tell if a `GatingSet` has been compensated?
-2. How would be able to tell if a `GatingSet` has been transformed?
+2. How would you be able to tell if a `GatingSet` has been transformed?
 *Hint*: Try `help.search("get_transformation")`.
 3. Why might it be beneficial to compensate and transform a `GatingSet` rather than a `cytoframe` or a `cytoset`?
 
@@ -114,13 +115,12 @@ You may have noticed above that some function calls have `gs_` and others have `
 
 The `GatingHierarchy` is a data structure that stores the sample-wise gating information present in a `GatingSet`. In essence a `GatingSet` is a collection of `GatingHierarchy`. 
 
-You can access the `GatingHierarchy` using the `[[` subset operation. 
+You can access the `GatingHierarchy` using the `[[]]` subset operation. 
 
 ### Exercise
 1. Try running `gh_get_compensations(gs)`. Why do you get an error message? How would you fix this?
 2. What other methods have `gs_` and `gh_`? 
-2. What is the difference between `gs[1]` and `gs[[1]]`?
-3. Why are there multiple data structures to represent and hold flow cytometry data in the `cytoverse`?
+3. What is the difference between `gs[1]` and `gs[[1]]`?
 
 
 ## Adding gates and building a hierarchy {.tabset}
