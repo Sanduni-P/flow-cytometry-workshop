@@ -9,10 +9,20 @@ website:
         text: Home
       - text: Workshop
         menu:
-        - text: "Basics on working with FCS files"
+        - text: "Basics of working with FCS files"
           href: vignettes/1_Import_fcs.html
         - text: "Spillover, compensation, and Transformations"
           href: vignettes/2_Spillover_transformation.html
+        - text: "Gating Cells"
+          href: vignettes/3_Gating_1.html  
+        - text: "Accessing gated data"
+          href: vignettes/4_Gating_2.html
+        - text: "Gating cells with gatingTemplates"
+          href: vignettes/5_Gating_gatingTemplate.html
+        - text: "Visualizations using ggcyto"
+          href: vignettes/6_ggcyto.html
+        - text: "Reporting"
+          href: vignettes/7_Reporting.html
 format:
   html:
     theme: 
